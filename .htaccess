@@ -1,0 +1,8 @@
+AddType video/mp4 .mp4
+AddType audio/mpeg .mp3
+AddType image/gif .gif
+AddType image/jpeg .jpg
+
+<IfModule mod_headers.c>
+  Header set Accept-Ranges bytes
+</IfModule>

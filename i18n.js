@@ -1073,8 +1073,11 @@
       if (kicker) kicker.textContent = t("stepOf", i + 1, total);
       const h2 = slide.querySelector("h2");
       if (h2) h2.textContent = s.title[lang];
-      const img = slide.querySelector("img");
-      if (img) img.alt = s.alt[lang];
+      const media = slide.querySelector("video, img");
+      if (media) {
+        if (media.tagName === "VIDEO") media.setAttribute("aria-label", s.alt[lang]);
+        else media.alt = s.alt[lang];
+      }
       const replay = slide.querySelector(".replay-gif");
       if (replay) replay.textContent = t("replay");
       const ol = slide.querySelector(".howto ol");

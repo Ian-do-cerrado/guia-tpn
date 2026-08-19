@@ -8,6 +8,8 @@ _montar_novos.py
 _recortar.py
 _patch_i18n.py
 _tts_langs.py
+_convert_media.py
+_patch_player.py
 _frames/
 _probe/
 __pycache__/
