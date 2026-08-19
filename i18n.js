@@ -955,7 +955,7 @@
     s.textContent =
       ".langs{display:flex;flex-wrap:wrap;align-items:center;gap:16px 20px}" +
       ".langs button{display:inline-flex;align-items:center;gap:8px;margin:0;padding:8px 0;border:0;background:transparent;color:#000;font:inherit;font-size:.95rem;font-weight:500;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent}" +
-      ".langs button[aria-pressed=\"true\"]{background:transparent;color:var(--green,#176b52);font-weight:700}" +
+      ".langs button[aria-pressed=\"true\"]{background:transparent;color:var(--green,#1c4c23);font-weight:700}" +
       ".langs .flag{display:block;width:22px;height:15px;border:1px solid #4a4a4a;border-radius:1px;overflow:hidden;flex:0 0 auto;background:#fff}" +
       ".langs .flag svg{display:block;width:100%;height:100%}" +
       ".hero .langs{margin:0 0 20px}";
