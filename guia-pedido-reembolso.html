@@ -347,7 +347,7 @@
 
     .media {
       position: absolute;
-      inset: 0;
+      inset: 0 0 var(--caption-space, 0px) 0;
       background: #0b1f18;
       border-radius: 0;
       padding: 0;
@@ -374,27 +374,28 @@
     }
     .caption {
       position: absolute;
-      left: 14px;
-      right: 14px;
-      top: calc(max(12px, env(safe-area-inset-top)) + 8px);
+      left: 0;
+      right: 0;
+      top: auto;
+      bottom: 0;
       z-index: 8;
       pointer-events: none;
       text-align: center;
-    }
-    .app.chrome-on .caption {
-      top: calc(max(8px, env(safe-area-inset-top)) + 118px);
+      padding: 4px 8px calc(4px + env(safe-area-inset-bottom));
+      background: #0b1f18;
     }
     .app.is-done .caption { display: none; }
+    .app.is-done { --caption-space: 0px; }
     .caption-inner {
       display: inline-block;
       max-width: 100%;
-      padding: 7px 12px;
-      border-radius: 12px;
-      background: rgba(11, 31, 24, 0.32);
+      padding: 2px 4px;
+      border-radius: 0;
+      background: transparent;
       color: #fff;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 650;
-      line-height: 1.35;
+      line-height: 1.3;
       text-shadow:
         0 1px 2px rgba(0,0,0,.8),
         0 0 8px rgba(0,0,0,.45);
@@ -672,6 +673,11 @@
     let startY = null;
     const captionEl = document.getElementById("caption");
     const app = document.querySelector(".app");
+    if (window.ResizeObserver && captionEl) {
+      new ResizeObserver(() => {
+        app.style.setProperty("--caption-space", (app.classList.contains("is-done") ? 0 : captionEl.offsetHeight) + "px");
+      }).observe(captionEl);
+    }
 
     const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const narrateBtn = document.getElementById("narrate");
@@ -889,6 +895,12 @@
     function setChrome(on) {
       app.classList.toggle("chrome-on", !!on);
     }
+
+    app.addEventListener("pointerdown", (e) => {
+      if (app.classList.contains("is-done")) return;
+      if (e.target.closest("#prev, #next, .replay-gif, .progress")) return;
+      setChrome(true);
+    });
 
     function hideGifReplay(slide) {
       const box = slide && slide.querySelector(".media-replay");
