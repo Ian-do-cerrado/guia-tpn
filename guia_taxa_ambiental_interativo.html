@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-guide="taxa">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -85,6 +85,14 @@
       background: linear-gradient(180deg, rgba(11, 31, 24, 0.94) 0%, rgba(11, 31, 24, 0.55) 68%, transparent 100%);
       padding: max(8px, env(safe-area-inset-top)) var(--side-r) 28px var(--side);
       border-bottom: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .28s ease;
+    }
+    .app.chrome-on header,
+    .app.is-done header {
+      opacity: 1;
+      pointer-events: auto;
     }
     .app.is-done header {
       background: var(--white);
@@ -368,10 +376,13 @@
       position: absolute;
       left: 14px;
       right: 14px;
-      top: calc(max(8px, env(safe-area-inset-top)) + 118px);
+      top: calc(max(12px, env(safe-area-inset-top)) + 8px);
       z-index: 8;
       pointer-events: none;
       text-align: center;
+    }
+    .app.chrome-on .caption {
+      top: calc(max(8px, env(safe-area-inset-top)) + 118px);
     }
     .app.is-done .caption { display: none; }
     .caption-inner {
@@ -448,43 +459,60 @@
     }
 
     .controls {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 10;
+      position: absolute;
+      inset: 0;
+      z-index: 11;
       display: flex;
-      gap: 8px;
-      padding: 28px max(16px, calc((100vw - var(--max)) / 2 + 16px)) calc(8px + var(--bottom));
-      background: linear-gradient(0deg, rgba(11, 31, 24, 0.92) 0%, rgba(11, 31, 24, 0.42) 62%, transparent 100%);
-      border-top: 0;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+      padding: 0 6px;
+      background: none;
+      border: 0;
     }
     .app.is-done .controls {
-      background: rgba(255,255,255,.96);
-      border-top: 1px solid var(--line);
-      padding-top: 8px;
+      background: none;
+      border: 0;
+      padding: 0 6px;
     }
     .controls button {
-      flex: 1;
-      min-height: 48px;
+      pointer-events: auto;
+      flex: 0 0 auto;
+      width: 44px;
+      height: 44px;
+      margin: 0;
+      padding: 0;
       border: 0;
-      border-radius: 12px;
-      font-weight: 750;
+      border-radius: 50%;
+      background: rgba(11, 31, 24, 0.55);
+      color: #fff;
       cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0,0,0,.28);
     }
-    #prev {
-      background: #e5ece8;
-      color: var(--text);
+    .controls button svg {
+      display: block;
+      width: 22px;
+      height: 22px;
+      margin: 0 auto;
     }
     #prev:disabled {
-      opacity: .45;
+      opacity: .35;
       cursor: not-allowed;
     }
     #next {
-      background: var(--green);
-      color: var(--white);
+      background: rgba(23, 107, 82, 0.88);
+      color: #fff;
     }
     #next.finish { background: var(--green-dark); }
+    .app.is-done .controls button {
+      background: var(--green-soft);
+      color: var(--green-dark);
+      box-shadow: 0 2px 10px rgba(0,0,0,.12);
+    }
+    .app.is-done #next {
+      background: var(--green);
+      color: #fff;
+    }
 
     .sr-only {
       position: absolute;
@@ -650,8 +678,16 @@
     </main>
 
     <div class="controls">
-      <button type="button" id="prev">Voltar</button>
-      <button type="button" id="next">Próximo</button>
+      <button type="button" id="prev" aria-label="Voltar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M15 6l-6 6 6 6"/>
+        </svg>
+      </button>
+      <button type="button" id="next" aria-label="Próximo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 6l6 6-6 6"/>
+        </svg>
+      </button>
     </div>
     <div class="sr-only" aria-hidden="true">
       <audio data-step-audio="0" src="media/narracao-01.mp3" preload="auto"></audio>
@@ -664,7 +700,9 @@
     </div>
   </div>
 
+  <script src="i18n.js"></script>
   <script>
+    GuiaI18n.applyGuide("taxa");
     const slides = [...document.querySelectorAll(".slide")];
     const done = document.getElementById("done");
     const dots = [...document.querySelectorAll(".progress button")];
@@ -709,7 +747,7 @@
       narrateBtn.setAttribute("aria-pressed", voiceOn ? "true" : "false");
       narrateBtn.setAttribute(
         "aria-label",
-        voiceOn ? "Narração ligada. Toque para desligar" : "Narração desligada. Toque para ligar"
+        voiceOn ? GuiaI18n.t("narrateOn") : GuiaI18n.t("narrateOff")
       );
     }
 
@@ -892,6 +930,10 @@
 
     let gifTimer = 0;
 
+    function setChrome(on) {
+      app.classList.toggle("chrome-on", !!on);
+    }
+
     function hideGifReplay(slide) {
       const box = slide && slide.querySelector(".media-replay");
       if (box) box.classList.remove("is-on");
@@ -908,13 +950,22 @@
     function armGifEnd(slide) {
       clearTimeout(gifTimer);
       hideGifReplay(slide);
-      if (!slide || reduceMotion) return;
+      if (!slide) return;
+      if (reduceMotion) {
+        setChrome(true);
+        return;
+      }
+      setChrome(false);
       const img = slide.querySelector("img");
-      if (!img || img.dataset.gifMissing === "1") return;
+      if (!img || img.dataset.gifMissing === "1") {
+        setChrome(true);
+        return;
+      }
       const ms = Number(img.dataset.durationMs) || 12000;
       gifTimer = setTimeout(() => {
         if (slides[current] !== slide) return;
         freezeGif(slide);
+        setChrome(true);
         const box = slide.querySelector(".media-replay");
         if (box) box.classList.add("is-on");
       }, ms + 280);
@@ -922,9 +973,13 @@
 
     function replayMedia(slide) {
       const img = slide && slide.querySelector("img");
-      if (!img || reduceMotion || img.dataset.gifMissing === "1") return;
+      if (!img || reduceMotion || img.dataset.gifMissing === "1") {
+        setChrome(true);
+        return;
+      }
       const gif = img.dataset.gif;
       hideGifReplay(slide);
+      setChrome(false);
       img.dataset.ignoreError = "1";
       img.src = gif + "?r=" + Date.now();
       img.dataset.ignoreError = "";
@@ -944,7 +999,9 @@
       done.classList.toggle("active", finished);
       if (finished) {
         clearTimeout(gifTimer);
+        setChrome(true);
       } else if (changed) {
+        setChrome(false);
         replayMedia(slides[current]);
       } else {
         armGifEnd(slides[current]);
@@ -962,9 +1019,9 @@
         }
       });
 
-      status.textContent = finished ? "Tudo certo · pague a taxa no app" : `Passo ${current + 1} de ${last}`;
+      status.textContent = finished ? GuiaI18n.t("statusDone") : GuiaI18n.t("stepOf", current + 1, last);
       prev.disabled = current === 0;
-      next.textContent = finished ? "Ver de novo" : current === last - 1 ? "Concluir" : "Próximo";
+      next.setAttribute("aria-label", finished ? GuiaI18n.t("again") : current === last - 1 ? GuiaI18n.t("finish") : GuiaI18n.t("next"));
       next.classList.toggle("finish", current >= last - 1);
 
       window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
@@ -1019,6 +1076,11 @@
       }
     });
 
+    document.addEventListener("guia-langchange", () => {
+      GuiaI18n.applyGuide("taxa");
+      setNarrateUi();
+      show(current);
+    });
     show(0);
   </script>
 </body>
