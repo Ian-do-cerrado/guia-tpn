@@ -1,0 +1,36 @@
+name: Deploy no servidor
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Atualizar o site no servidor
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: 177.204.203.30
+          username: ian
+          password: ${{ secrets.SERVER_SSH_PASSWORD }}
+          script_stop: true
+          script: |
+            set -e
+            mkdir -p ~/.ssh
+            chmod 700 ~/.ssh
+            if [ -f "$HOME/.ssh/github_deploy" ]; then
+              eval "$(ssh-agent -s)"
+              ssh-add "$HOME/.ssh/github_deploy"
+            fi
+            mkdir -p /home/ian/guia-tpn
+            if [ ! -d /home/ian/guia-tpn/.git ]; then
+              GIT_SSH_COMMAND="ssh -i $HOME/.ssh/github_deploy -o StrictHostKeyChecking=accept-new" \
+                git clone  git@github.com:Ian-do-cerrado/guia-tpn.git /home/ian/guia-tpn
+            fi
+            cd /home/ian/guia-tpn
+            GIT_SSH_COMMAND="ssh -i $HOME/.ssh/github_deploy -o StrictHostKeyChecking=accept-new" \
+              git fetch origin
+            git reset --hard origin/main
+            echo "Deploy ok: $(git rev-parse --short HEAD)"

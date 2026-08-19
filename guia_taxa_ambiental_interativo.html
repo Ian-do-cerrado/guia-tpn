@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#176b52">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Guia passo a passo para se cadastrar, criar o grupo e incluir pessoas no Turista por Natureza, antes de pagar a taxa ambiental.">
+  <title>Como pagar a taxa ambiental</title>
+  <style>
+    :root {
+      --green: #176b52;
+      --green-dark: #0e4a38;
+      --green-soft: #e7f3ee;
+      --green-mid: #9cc8b5;
+      --text: #1a2c26;
+      --muted: #4a5f57;
+      --line: #d5e3dc;
+      --bg: #f3f7f5;
+      --white: #fff;
+      --danger: #8a1f1f;
+      --focus: #0e4a38;
+      --radius: 14px;
+      --max: 430px;
+      --header-pad: max(12px, env(safe-area-inset-top));
+      --side: max(16px, env(safe-area-inset-left));
+      --side-r: max(16px, env(safe-area-inset-right));
+      --bottom: max(12px, env(safe-area-inset-bottom));
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: #0b1f18;
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.45;
+      overflow: hidden;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    button {
+      font: inherit;
+      color: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    .skip {
+      position: absolute;
+      left: 12px;
+      top: 8px;
+      z-index: 20;
+      padding: 8px 12px;
+      background: var(--white);
+      color: var(--green-dark);
+      font-weight: 700;
+      border-radius: 8px;
+      transform: translateY(-150%);
+    }
+    .skip:focus { transform: none; }
+
+    .app {
+      position: relative;
+      max-width: var(--max);
+      margin: 0 auto;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      background: #0b1f18;
+    }
+    .app.is-done { background: var(--bg); }
+
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      background: linear-gradient(180deg, rgba(11, 31, 24, 0.94) 0%, rgba(11, 31, 24, 0.55) 68%, transparent 100%);
+      padding: max(8px, env(safe-area-inset-top)) var(--side-r) 28px var(--side);
+      border-bottom: 0;
+    }
+    .app.is-done header {
+      background: var(--white);
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    .title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .title-row > div { min-width: 0; flex: 1; }
+    .back {
+      flex: 0 0 auto;
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--green-dark);
+      background: var(--green-soft);
+      text-decoration: none;
+    }
+    .back svg { width: 22px; height: 22px; }
+    #narrate {
+      flex: 0 0 auto;
+      width: 44px;
+      height: 44px;
+      margin-top: 0;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--green-soft);
+      color: var(--green-dark);
+      cursor: pointer;
+    }
+    #narrate[aria-pressed="true"] {
+      background: var(--green);
+      border-color: var(--green);
+      color: var(--white);
+    }
+    #narrate svg {
+      display: block;
+      margin: 0 auto;
+      width: 22px;
+      height: 22px;
+    }
+    #narrate[hidden] { display: none; }
+    h1 {
+      margin: 0;
+      font-size: 1.05rem;
+      line-height: 1.25;
+      color: #fff;
+    }
+    .app.is-done h1 { color: var(--green-dark); }
+    .lede,
+    .credit {
+      display: none;
+    }
+
+    .progress {
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      margin: 10px 4px 0;
+      padding: 0;
+    }
+    .progress::before {
+      content: "";
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      top: 50%;
+      height: 3px;
+      background: rgba(255,255,255,.28);
+      transform: translateY(-50%);
+      border-radius: 99px;
+      z-index: 0;
+    }
+    .app.is-done .progress::before { background: #d7e4de; }
+    .progress li {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      padding: 0;
+      flex: 0 0 auto;
+    }
+    .progress button {
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 3px solid rgba(255,255,255,.9);
+      border-radius: 50%;
+      background: #d7e4de;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 750;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .app.is-done .progress button { border-color: var(--white); }
+    .progress button[aria-current="step"] {
+      background: var(--green);
+      color: var(--white);
+      transform: scale(1.08);
+    }
+    .progress button.done {
+      background: var(--green-mid);
+      color: var(--green-dark);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .progress button[aria-current="step"] { transform: none; }
+    }
+    @media (max-width: 360px) {
+      .progress button { width: 40px; height: 40px; }
+    }
+
+    .status {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+    }
+
+    main {
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      padding: 0;
+      position: relative;
+    }
+
+    .slide { display: none; }
+    .slide.active {
+      display: block;
+      position: absolute;
+      inset: 0;
+    }
+    .slide.active .media {
+      animation: fade .2s ease;
+    }
+    .slide .kicker,
+    .slide h2,
+    .slide .howto,
+    .slide .tip {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .slide.active .media { animation: none; }
+    }
+    @keyframes fade {
+      from { opacity: .5; transform: translateX(10px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .kicker {
+      margin: 0;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--green);
+    }
+    .slide h2 {
+      margin: 1px 0 0;
+      font-size: 1.05rem;
+      line-height: 1.25;
+    }
+
+    .done {
+      display: none;
+    }
+    .done.active {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: absolute;
+      inset: 0;
+      overflow: auto;
+      padding: calc(max(8px, env(safe-area-inset-top)) + 118px) var(--side-r) calc(84px + var(--bottom)) var(--side);
+      background: var(--bg);
+      animation: fade .2s ease;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .done.active { animation: none; }
+    }
+
+    .done-hero {
+      text-align: center;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px 18px 18px;
+    }
+    .done-mark {
+      display: grid;
+      place-items: center;
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      background: var(--green);
+      color: var(--white);
+    }
+    .done-mark svg {
+      width: 32px;
+      height: 32px;
+    }
+    .done-hero .kicker {
+      margin-bottom: 6px;
+    }
+    .done-hero h2 {
+      margin: 0 0 10px;
+      font-size: 1.35rem;
+      line-height: 1.25;
+      color: var(--green-dark);
+    }
+    .done-lead {
+      margin: 0 auto;
+      max-width: 22rem;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+    .credit-end {
+      margin: 2px 0 0;
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .slide.active .howto {
+      margin-top: 0;
+      flex-shrink: 0;
+    }
+    .howto-label {
+      margin: 0 0 8px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--green-dark);
+    }
+
+    .media {
+      position: absolute;
+      inset: 0;
+      background: #0b1f18;
+      border-radius: 0;
+      padding: 0;
+      border: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center top;
+      border-radius: 0;
+      background: #0b1f18;
+    }
+    .media-replay {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      border-radius: 0;
+      background: rgba(14, 74, 56, 0.42);
+    }
+    .caption {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      top: calc(max(8px, env(safe-area-inset-top)) + 118px);
+      z-index: 8;
+      pointer-events: none;
+      text-align: center;
+    }
+    .app.is-done .caption { display: none; }
+    .caption-inner {
+      display: inline-block;
+      max-width: 100%;
+      padding: 7px 12px;
+      border-radius: 12px;
+      background: rgba(11, 31, 24, 0.32);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 650;
+      line-height: 1.35;
+      text-shadow:
+        0 1px 2px rgba(0,0,0,.8),
+        0 0 8px rgba(0,0,0,.45);
+    }
+    .caption .w {
+      display: inline;
+      opacity: 0;
+      filter: blur(6px);
+      transition: opacity .22s ease, filter .22s ease, color .18s ease;
+    }
+    .caption .w.on {
+      opacity: 1;
+      filter: none;
+    }
+    .caption .w.now { color: #e8fff4; }
+    @media (prefers-reduced-motion: reduce) {
+      .caption .w { filter: none; transition: opacity .15s ease; }
+    }
+    .media-replay.is-on { display: grid; }
+    .media-replay button {
+      min-height: 48px;
+      padding: 0 20px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--white);
+      color: var(--green-dark);
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .howto {
+      margin: 0;
+      padding: 12px 12px 12px 14px;
+      background: var(--green-soft);
+      border-radius: var(--radius);
+      border-left: 4px solid var(--green);
+    }
+    .howto ol {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+    .howto li { margin: 0 0 6px; }
+    .howto li:last-child { margin: 0; }
+    .howto b { color: var(--green-dark); }
+
+    .tip {
+      margin: 0;
+      padding: 8px 12px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+    .tip strong {
+      display: block;
+      color: var(--text);
+      font-size: 0.75rem;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .controls {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 28px max(16px, calc((100vw - var(--max)) / 2 + 16px)) calc(8px + var(--bottom));
+      background: linear-gradient(0deg, rgba(11, 31, 24, 0.92) 0%, rgba(11, 31, 24, 0.42) 62%, transparent 100%);
+      border-top: 0;
+    }
+    .app.is-done .controls {
+      background: rgba(255,255,255,.96);
+      border-top: 1px solid var(--line);
+      padding-top: 8px;
+    }
+    .controls button {
+      flex: 1;
+      min-height: 48px;
+      border: 0;
+      border-radius: 12px;
+      font-weight: 750;
+      cursor: pointer;
+    }
+    #prev {
+      background: #e5ece8;
+      color: var(--text);
+    }
+    #prev:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+    }
+    #next {
+      background: var(--green);
+      color: var(--white);
+    }
+    #next.finish { background: var(--green-dark); }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#conteudo">Ir para o conteúdo do passo</a>
+  <div class="app">
+    <header>
+      <div class="title-row">
+        <a class="back" href="index.html" aria-label="Voltar ao início">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 6l-6 6 6 6"/>
+          </svg>
+        </a>
+        <div>
+          <h1>Como pagar a taxa ambiental</h1>
+          <p class="lede">Turista por Natureza · cadastre-se, crie o grupo e inclua quem viaja</p>
+          <p class="credit">Música: sakuracloud — miffy cafe [NCS Release]</p>
+        </div>
+        <button type="button" id="narrate" aria-pressed="true" aria-label="Narração ligada. Toque para desligar" title="Narração">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 5L6 9H3v6h3l5 4V5z"/>
+            <path d="M16 9a5 5 0 0 1 0 6"/>
+            <path d="M19 7a8.5 8.5 0 0 1 0 10"/>
+          </svg>
+        </button>
+      </div>
+      <ol class="progress" aria-label="Progresso do guia">
+        <li><button type="button" data-go="0" aria-label="Passo 1: Entrar ou criar conta">1</button></li>
+        <li><button type="button" data-go="1" aria-label="Passo 2: Celular, e-mail e salvar">2</button></li>
+        <li><button type="button" data-go="2" aria-label="Passo 3: Criar o grupo">3</button></li>
+        <li><button type="button" data-go="3" aria-label="Passo 4: Inclua quem viaja junto">4</button></li>
+        <li><button type="button" data-go="4" aria-label="Passo 5: Pague a taxa ambiental">5</button></li>
+      </ol>
+      <p class="status" id="status" aria-live="polite">Passo 1 de 5</p>
+    </header>
+
+    <div class="caption" id="caption" aria-hidden="true"></div>
+
+    <main id="conteudo" tabindex="-1">
+      <article class="slide" data-step="0" aria-labelledby="t1" data-audio="media/narracao-01.mp3" data-narrate="Passo 1. Entre ou crie sua conta. Abra o aplicativo ou o site Turista por Natureza. Se é a primeira vez, toque em Novo Cadastro. Se já tem conta, informe o localizador ou documento, a senha ou o celular com DDD, e toque em Entrar. O login de agência de turismo é só para empresas.">
+        <p class="kicker" id="t1">Passo 1 de 5</p>
+        <h2>Entre ou crie sua conta</h2>
+        <div class="media">
+          <img src="media/passo-01.gif" width="1080" height="1920" loading="eager" decoding="async" alt="Tela de login do Turista por Natureza, com os campos de localizador e senha e os botões Entrar e Novo Cadastro." data-gif="media/passo-01.gif" data-still="media/passo-01.jpg" data-duration-ms="17100">
+          <div class="media-replay">
+            <button type="button" class="replay-gif">Ver novamente</button>
+          </div>
+        </div>
+        <div class="howto">
+          <ol>
+            <li>Abra o aplicativo ou o site <b>Turista por Natureza</b>.</li>
+            <li>Se é a primeira vez, toque em <b>Novo Cadastro</b>.</li>
+            <li>Se já tem conta, informe o <b>localizador ou documento</b>, a senha (ou o celular com DDD) e toque em <b>Entrar</b>.</li>
+          </ol>
+        </div>
+        <p class="tip"><strong>Dica</strong>O link “Login agência de turismo” é só para empresas. Turista usa Entrar ou Novo Cadastro.</p>
+      </article>
+
+      <article class="slide" data-step="1" aria-labelledby="t2" data-audio="media/narracao-02.mp3" data-narrate="Passo 2. Informe celular e e-mail e salve. Role até Dados opcionais. Preencha celular e e-mail para montar o grupo com amigos e família. A senha é opcional. Se ficar em branco, o celular pode valer como senha. Toque em Salvar. Se o cadastro é seu, desmarque permitir alteração por terceiros.">
+        <p class="kicker" id="t2">Passo 2 de 5</p>
+        <h2>Informe celular e e-mail e salve</h2>
+        <div class="media">
+          <img src="media/passo-02.gif" width="1080" height="1920" loading="lazy" decoding="async" alt="Tela de cadastro. Uma indicação aponta para o campo Celular, acima do e-mail e do botão SALVAR." data-gif="media/passo-02.gif" data-still="media/passo-02.jpg" data-duration-ms="11880">
+          <div class="media-replay">
+            <button type="button" class="replay-gif">Ver novamente</button>
+          </div>
+        </div>
+        <div class="howto">
+          <ol>
+            <li>Role até <b>Dados opcionais</b>.</li>
+            <li>Preencha <b>celular</b> e <b>e-mail</b> — assim você monta o grupo com amigos e família.</li>
+            <li>A senha é opcional. Se ficar em branco, o celular pode valer como senha.</li>
+            <li>Toque em <b>SALVAR</b>.</li>
+          </ol>
+        </div>
+        <p class="tip"><strong>Se o cadastro é seu</strong>Desmarque “Permitir alteração por terceiros”. Deixe marcado só se uma agência ou guia for cuidar disso para você.</p>
+      </article>
+
+      <article class="slide" data-step="2" aria-labelledby="t3" data-audio="media/narracao-03.mp3" data-narrate="Passo 3. Crie o grupo da viagem. Na barra de baixo, toque em Grupos. Toque no botão mais para criar o grupo. Informe as datas de chegada e saída e salve. Quando aparecer o localizador, toque em Logar no grupo. Para adicionar pessoas ao grupo, toque no ícone Passageiros e preencha os dados no próximo passo.">
+        <p class="kicker" id="t3">Passo 3 de 5</p>
+        <h2>Crie o grupo da viagem</h2>
+        <div class="media">
+          <img src="media/passo-03.gif" width="1080" height="1920" loading="lazy" decoding="async" alt="Aba Grupos vazia. Uma indicação aponta para o botão + no canto inferior direito." data-gif="media/passo-03.gif" data-still="media/passo-03.jpg" data-duration-ms="15900">
+          <div class="media-replay">
+            <button type="button" class="replay-gif">Ver novamente</button>
+          </div>
+        </div>
+        <div class="howto">
+          <ol>
+            <li>Na barra de baixo, toque em <b>GRUPOS</b>.</li>
+            <li>Toque no botão verde <b>+</b> para criar o grupo.</li>
+            <li>Em seguida, informe as datas de <b>chegada</b> e <b>saída</b> e salve.</li>
+            <li>Para adicionar pessoas ao grupo, toque no ícone <b>Passageiros</b> e preencha os dados no próximo passo.</li>
+          </ol>
+        </div>
+        <p class="tip"><strong>Depois de salvar</strong>Quando o app mostrar o localizador do grupo, toque em <b>Logar no grupo</b> para entrar nele.</p>
+      </article>
+
+      <article class="slide" data-step="3" aria-labelledby="t4" data-audio="media/narracao-04.mp3" data-narrate="Passo 4. Inclua quem viaja junto. No grupo, abra a aba Passageiros. Preencha os campos obrigatórios, começando pelo nome: sexo, nascimento, documento e cidade. No Brasil use o CPF; de outro país, o passaporte. Toque em Salvar passageiro. Para incluir mais alguém, toque no mais e repita.">
+        <p class="kicker" id="t4">Passo 4 de 5</p>
+        <h2>Inclua quem viaja junto</h2>
+        <div class="media">
+          <img src="media/passo-04.gif" width="1080" height="1920" loading="lazy" decoding="async" alt="Formulário Cadastro Passageiro. Uma indicação aponta para o campo Nome, o primeiro campo obrigatório." data-gif="media/passo-04.gif" data-still="media/passo-04.jpg" data-duration-ms="24990">
+          <div class="media-replay">
+            <button type="button" class="replay-gif">Ver novamente</button>
+          </div>
+        </div>
+        <div class="howto">
+          <ol>
+            <li>No grupo, abra <b>Passageiros</b> e preencha os campos com <b>*</b>, começando pelo nome.</li>
+            <li>Informe sexo, nascimento, documento (<b>CPF</b> ou passaporte) e cidade da viagem.</li>
+            <li>Toque em <b>Salvar passageiro</b>. Para incluir mais alguém, toque no <b>+</b> e repita.</li>
+          </ol>
+        </div>
+        <p class="tip"><strong>Documento</strong>Só marque <b>Dependente (sem doc.)</b> se a pessoa realmente não tiver documento.</p>
+      </article>
+
+      <article class="slide" data-step="4" aria-labelledby="t5" data-audio="media/narracao-05.mp3" data-narrate="Passo 5. Pague a taxa ambiental. Abra o grupo e toque em Taxas e serviços. Marque os dias em que cada pessoa permanece na cidade. Toque em Pagar e escolha Pix, cartão ou link de pagamento. Confira se o status ficou Pago. Se aparecer um link de pagamento, ele vale por 24 horas. Só saia da tela depois de ver o status Pago.">
+        <p class="kicker" id="t5">Passo 5 de 5</p>
+        <h2>Pague a taxa ambiental</h2>
+        <div class="media">
+          <img src="media/passo-05.gif" width="1080" height="1920" loading="lazy" decoding="async" alt="Aba Passageiros do grupo, com pessoas cadastradas. Depois de salvar o grupo, siga para Taxas e serviços e o pagamento." data-gif="media/passo-05.gif" data-still="media/passo-05.jpg" data-duration-ms="19980">
+          <div class="media-replay">
+            <button type="button" class="replay-gif">Ver novamente</button>
+          </div>
+        </div>
+        <div class="howto">
+          <ol>
+            <li>Abra o grupo e toque em <b>Taxas e serviços</b>.</li>
+            <li>Marque os dias em que cada pessoa permanece na cidade.</li>
+            <li>Toque em <b>Pagar</b> e escolha Pix, cartão ou link de pagamento.</li>
+            <li>Confira se o status ficou <b>Pago</b>.</li>
+          </ol>
+        </div>
+        <p class="tip"><strong>Se o link de pagamento aparecer</strong>Ele vale por 24 horas. Depois de pagar, não feche a tela antes de ver o status Pago.</p>
+      </article>
+
+      <section class="done" id="done" aria-labelledby="tdone" data-audio="media/narracao-06.mp3" data-narrate="Guia concluído. Cadastro, grupo e pagamento já foram explicados. No aplicativo, confira se o status da taxa ambiental ficou Pago.">
+        <div class="done-hero">
+          <span class="done-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12.5l4.2 4.2L19 7.5"/>
+            </svg>
+          </span>
+          <p class="kicker">Guia concluído</p>
+          <h2 id="tdone">Você concluiu o guia</h2>
+          <p class="done-lead">Cadastro, grupo e passageiros estão prontos. A taxa ambiental se paga no próprio grupo, em Taxas e serviços, como no passo 5.</p>
+        </div>
+        <p class="tip"><strong>Lembrete</strong>Se aparecer um link de pagamento, ele vale por 24 horas. Só saia da tela depois de ver o status <b>Pago</b>.</p>
+        <p class="credit-end">Música: sakuracloud — miffy cafe [NCS Release]</p>
+      </section>
+    </main>
+
+    <div class="controls">
+      <button type="button" id="prev">Voltar</button>
+      <button type="button" id="next">Próximo</button>
+    </div>
+    <div class="sr-only" aria-hidden="true">
+      <audio data-step-audio="0" src="media/narracao-01.mp3" preload="auto"></audio>
+      <audio data-step-audio="1" src="media/narracao-02.mp3" preload="auto"></audio>
+      <audio data-step-audio="2" src="media/narracao-03.mp3" preload="auto"></audio>
+      <audio data-step-audio="3" src="media/narracao-04.mp3" preload="auto"></audio>
+      <audio data-step-audio="4" src="media/narracao-05.mp3" preload="auto"></audio>
+      <audio data-step-audio="5" src="media/narracao-06.mp3" preload="auto"></audio>
+      <audio id="bgm" src="media/fundo.mp3" loop preload="auto"></audio>
+    </div>
+  </div>
+
+  <script>
+    const slides = [...document.querySelectorAll(".slide")];
+    const done = document.getElementById("done");
+    const dots = [...document.querySelectorAll(".progress button")];
+    const status = document.getElementById("status");
+    const prev = document.getElementById("prev");
+    const next = document.getElementById("next");
+    const main = document.getElementById("conteudo");
+    const last = slides.length;
+    let current = 0;
+    let startX = null;
+    let startY = null;
+    const captionEl = document.getElementById("caption");
+    const app = document.querySelector(".app");
+
+    const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const narrateBtn = document.getElementById("narrate");
+    const clips = [...document.querySelectorAll("audio[data-step-audio]")];
+    const bgm = document.getElementById("bgm");
+    const BGM_VOL = 0.20;
+    const BGM_DUCK = 0.12;
+    let voiceOn = localStorage.getItem("guia-narrate") !== "off";
+    bgm.volume = BGM_VOL;
+
+    function startBgm() {
+      if (!bgm.paused) return;
+      const play = bgm.play();
+      if (play && typeof play.catch === "function") play.catch(() => {});
+    }
+
+    function duckBgm() {
+      const talking = clips.some((clip) => !clip.paused && !clip.ended);
+      bgm.volume = talking ? BGM_DUCK : BGM_VOL;
+    }
+
+    clips.forEach((clip) => {
+      clip.addEventListener("play", duckBgm);
+      clip.addEventListener("pause", duckBgm);
+      clip.addEventListener("ended", duckBgm);
+    });
+
+    function setNarrateUi() {
+      narrateBtn.setAttribute("aria-pressed", voiceOn ? "true" : "false");
+      narrateBtn.setAttribute(
+        "aria-label",
+        voiceOn ? "Narração ligada. Toque para desligar" : "Narração desligada. Toque para ligar"
+      );
+    }
+
+    function stopNarration() {
+      clips.forEach((clip) => {
+        clip.pause();
+        try { clip.currentTime = 0; } catch (err) {}
+      });
+    }
+
+    function speakCurrent() {
+      stopNarration();
+      startBgm();
+      if (!voiceOn) return;
+      const clip = clips.find((item) => Number(item.dataset.stepAudio) === current);
+      if (!clip) return;
+      const play = clip.play();
+      if (play && typeof play.catch === "function") play.catch(() => {});
+    }
+
+    let captionRaf = 0;
+    let captionClock = 0;
+    let captionPhrases = [];
+    let captionDuration = 0;
+    let captionGen = 0;
+
+    function splitPhrases(text) {
+      const parts = [];
+      String(text || "").replace(/[^.!?]+[.!?]+|[^.!?]+$/g, (chunk) => {
+        const s = chunk.trim();
+        if (s) parts.push(s);
+        return chunk;
+      });
+      const out = [];
+      for (const part of parts) {
+        const prev = out[out.length - 1];
+        if (prev && prev.split(/\s+/).length < 6) out[out.length - 1] = prev + " " + part;
+        else out.push(part);
+      }
+      return out.length ? out : [String(text || "").trim()].filter(Boolean);
+    }
+
+    function phrasePlan(text, duration) {
+      const phrases = splitPhrases(text).map((phrase) => ({
+        phrase,
+        words: phrase.split(/\s+/).filter(Boolean),
+        weight: Math.max(8, phrase.replace(/\s+/g, "").length)
+      }));
+      const total = phrases.reduce((n, p) => n + p.weight, 0) || 1;
+      let acc = 0;
+      return phrases.map((p) => {
+        const start = (acc / total) * duration;
+        acc += p.weight;
+        return { ...p, start, end: (acc / total) * duration };
+      });
+    }
+
+    function escapeWord(word) {
+      return String(word)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    function stopCaption() {
+      captionGen += 1;
+      cancelAnimationFrame(captionRaf);
+      captionRaf = 0;
+      captionClock = 0;
+      captionPhrases = [];
+      captionDuration = 0;
+      if (captionEl) {
+        captionEl.innerHTML = "";
+        captionEl.dataset.phrase = "";
+      }
+    }
+
+    function shownWordCount(phrase, t) {
+      const span = Math.max(0.08, phrase.end - phrase.start);
+      const local = Math.min(1, Math.max(0, (t - phrase.start) / span));
+      const weights = phrase.words.map((w) => Math.max(1, w.replace(/[^a-zA-ZÀ-ÿ0-9]/g, "").length));
+      const total = weights.reduce((n, w) => n + w, 0) || 1;
+      const target = local * total;
+      let acc = 0;
+      let shown = 0;
+      for (let i = 0; i < phrase.words.length; i++) {
+        if (target + 0.2 >= acc) shown = i + 1;
+        acc += weights[i];
+      }
+      if (t >= phrase.end - 0.04) shown = phrase.words.length;
+      if (reduceMotion) shown = phrase.words.length;
+      return shown;
+    }
+
+    function renderCaption(t) {
+      if (!captionEl || !captionPhrases.length) return;
+      const lastPhrase = captionPhrases[captionPhrases.length - 1];
+      const phrase = captionPhrases.find((p) => t < p.end - 0.01) || lastPhrase;
+      const shown = shownWordCount(phrase, t);
+      if (captionEl.dataset.phrase !== phrase.phrase) {
+        captionEl.dataset.phrase = phrase.phrase;
+        captionEl.innerHTML = '<span class="caption-inner">' +
+          phrase.words.map((word) => `<span class="w">${escapeWord(word)}</span>`).join(" ") +
+          "</span>";
+      }
+      const apply = () => {
+        captionEl.querySelectorAll(".w").forEach((el, i) => {
+          el.classList.toggle("on", i < shown);
+          el.classList.toggle("now", i === shown - 1 && shown > 0);
+        });
+      };
+      if (shown > 0) requestAnimationFrame(apply);
+      else apply();
+    }
+
+    function tickCaption() {
+      const clip = clips.find((item) => Number(item.dataset.stepAudio) === current);
+      let t = 0;
+      if (voiceOn && clip) t = clip.currentTime || 0;
+      else if (captionClock) t = (performance.now() - captionClock) / 1000;
+      else if (clip) t = clip.currentTime || 0;
+      renderCaption(t);
+      if (t < captionDuration + 0.35) captionRaf = requestAnimationFrame(tickCaption);
+    }
+
+    function startCaption() {
+      stopCaption();
+      const slide = slides[current];
+      if (!slide || current === last) return;
+      const gen = captionGen;
+      const clip = clips.find((item) => Number(item.dataset.stepAudio) === current);
+      const gif = slide.querySelector("img");
+      const fallback = (gif && Number(gif.dataset.durationMs) / 1000) || 12;
+      const text = slide.dataset.narrate || "";
+      const run = () => {
+        if (gen !== captionGen) return;
+        const next = (clip && Number.isFinite(clip.duration) && clip.duration > 0)
+          ? clip.duration
+          : fallback;
+        captionDuration = next;
+        captionPhrases = phrasePlan(text, captionDuration);
+        if (!captionClock) captionClock = performance.now();
+        renderCaption(voiceOn && clip && !clip.paused ? clip.currentTime : 0);
+        if (!captionRaf) tickCaption();
+      };
+      if (clip && !(Number.isFinite(clip.duration) && clip.duration > 0)) {
+        clip.addEventListener("loadedmetadata", run, { once: true });
+      }
+      run();
+    }
+
+    narrateBtn.addEventListener("click", () => {
+      voiceOn = !voiceOn;
+      localStorage.setItem("guia-narrate", voiceOn ? "on" : "off");
+      setNarrateUi();
+      if (voiceOn) {
+        speakCurrent();
+        startCaption();
+      } else {
+        const clip = clips.find((item) => Number(item.dataset.stepAudio) === current);
+        const t = clip ? clip.currentTime : 0;
+        captionClock = performance.now() - t * 1000;
+        clips.forEach((item) => item.pause());
+      }
+    });
+    setNarrateUi();
+    document.addEventListener("pointerdown", startBgm, { once: true });
+
+    document.querySelectorAll(".slide img").forEach((img) => {
+      img.addEventListener("error", () => {
+        if (img.dataset.ignoreError === "1") return;
+        img.dataset.gifMissing = "1";
+        if (img.dataset.still) img.src = img.dataset.still;
+      });
+      img.addEventListener("load", () => {
+        if (/\.gif(\?|#|$)/i.test(img.src)) img.dataset.gifMissing = "";
+      });
+      if (reduceMotion && img.dataset.still) img.src = img.dataset.still;
+    });
+
+    let gifTimer = 0;
+
+    function hideGifReplay(slide) {
+      const box = slide && slide.querySelector(".media-replay");
+      if (box) box.classList.remove("is-on");
+    }
+
+    function freezeGif(slide) {
+      const img = slide && slide.querySelector("img");
+      if (!img || !img.dataset.still) return;
+      img.dataset.ignoreError = "1";
+      img.src = img.dataset.still;
+      img.dataset.ignoreError = "";
+    }
+
+    function armGifEnd(slide) {
+      clearTimeout(gifTimer);
+      hideGifReplay(slide);
+      if (!slide || reduceMotion) return;
+      const img = slide.querySelector("img");
+      if (!img || img.dataset.gifMissing === "1") return;
+      const ms = Number(img.dataset.durationMs) || 12000;
+      gifTimer = setTimeout(() => {
+        if (slides[current] !== slide) return;
+        freezeGif(slide);
+        const box = slide.querySelector(".media-replay");
+        if (box) box.classList.add("is-on");
+      }, ms + 280);
+    }
+
+    function replayMedia(slide) {
+      const img = slide && slide.querySelector("img");
+      if (!img || reduceMotion || img.dataset.gifMissing === "1") return;
+      const gif = img.dataset.gif;
+      hideGifReplay(slide);
+      img.dataset.ignoreError = "1";
+      img.src = gif + "?r=" + Date.now();
+      img.dataset.ignoreError = "";
+      armGifEnd(slide);
+    }
+
+    function show(n) {
+      stopNarration();
+      stopCaption();
+      const nextIndex = Math.max(0, Math.min(last, n));
+      const changed = nextIndex !== current;
+      current = nextIndex;
+      const finished = current === last;
+      app.classList.toggle("is-done", finished);
+
+      slides.forEach((s, i) => s.classList.toggle("active", !finished && i === current));
+      done.classList.toggle("active", finished);
+      if (finished) {
+        clearTimeout(gifTimer);
+      } else if (changed) {
+        replayMedia(slides[current]);
+      } else {
+        armGifEnd(slides[current]);
+      }
+
+      dots.forEach((d, i) => {
+        d.classList.toggle("done", i < current);
+        if (finished) {
+          d.classList.add("done");
+          d.removeAttribute("aria-current");
+        } else {
+          d.toggleAttribute("aria-current", i === current);
+          if (i === current) d.setAttribute("aria-current", "step");
+          else d.removeAttribute("aria-current");
+        }
+      });
+
+      status.textContent = finished ? "Tudo certo · pague a taxa no app" : `Passo ${current + 1} de ${last}`;
+      prev.disabled = current === 0;
+      next.textContent = finished ? "Ver de novo" : current === last - 1 ? "Concluir" : "Próximo";
+      next.classList.toggle("finish", current >= last - 1);
+
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+      main.focus({ preventScroll: true });
+      speakCurrent();
+      if (!finished) startCaption();
+    }
+
+    document.querySelectorAll(".replay-gif").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        replayMedia(slides[current]);
+        speakCurrent();
+        startCaption();
+      });
+    });
+    dots.forEach((d) => d.addEventListener("click", () => show(Number(d.dataset.go))));
+    prev.addEventListener("click", () => show(current - 1));
+    next.addEventListener("click", () => show(current === last ? 0 : current + 1));
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") show(current + 1);
+      if (e.key === "ArrowLeft") show(current - 1);
+    });
+
+    document.addEventListener("touchstart", (e) => {
+      startX = e.changedTouches[0].clientX;
+      startY = e.changedTouches[0].clientY;
+    }, { passive: true });
+
+    document.addEventListener("touchend", (e) => {
+      if (startX === null) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      const dy = e.changedTouches[0].clientY - startY;
+      if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+        show(current + (dx < 0 ? 1 : -1));
+      }
+      startX = startY = null;
+    }, { passive: true });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        stopNarration();
+        stopCaption();
+        bgm.pause();
+      } else {
+        startBgm();
+        if (current < last) {
+          speakCurrent();
+          startCaption();
+        }
+      }
+    });
+
+    show(0);
+  </script>
+</body>
+</html>
