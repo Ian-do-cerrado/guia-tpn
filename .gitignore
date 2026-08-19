@@ -1,5 +1,6 @@
 key
 key.pub
+.github/workflows/deploy.yml
 _ssh_probe.py
 _ftp_probe.py
 _ftp_walk.py
