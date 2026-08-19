@@ -36,11 +36,6 @@
   let startY = null;
   const captionEl = document.getElementById("caption");
   const app = document.querySelector(".app");
-  if (window.ResizeObserver && captionEl) {
-    new ResizeObserver(() => {
-      app.style.setProperty("--caption-space", (app.classList.contains("is-done") ? 0 : captionEl.offsetHeight) + "px");
-    }).observe(captionEl);
-  }
 
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const narrateBtn = document.getElementById("narrate");
@@ -62,6 +57,47 @@
   function mediaEl(slide) {
     return slide && (slide.querySelector("video") || slide.querySelector("img"));
   }
+
+  function placeCaption() {
+    if (!captionEl || !app) return;
+    if (app.classList.contains("is-done")) {
+      captionEl.style.top = "";
+      captionEl.style.bottom = "0px";
+      app.style.setProperty("--caption-space", "0px");
+      return;
+    }
+    const capH = captionEl.offsetHeight || 0;
+    const media = mediaEl(slides[current]);
+    const appW = app.clientWidth || 430;
+    const appH = app.clientHeight || window.innerHeight;
+    let nw = 0;
+    let nh = 0;
+    if (media) {
+      nw = media.videoWidth || media.naturalWidth || Number(media.getAttribute("width")) || 0;
+      nh = media.videoHeight || media.naturalHeight || Number(media.getAttribute("height")) || 0;
+    }
+    const videoH = (nw > 0 && nh > 0) ? Math.min(appH, appW * (nh / nw)) : appH;
+    if (videoH + capH >= appH - 4) {
+      captionEl.style.top = "";
+      captionEl.style.bottom = "0px";
+      app.style.setProperty("--caption-space", capH + "px");
+      return;
+    }
+    captionEl.style.top = Math.round(videoH) + "px";
+    captionEl.style.bottom = "auto";
+    app.style.setProperty("--caption-space", "0px");
+  }
+
+  if (window.ResizeObserver && app) {
+    const ro = new ResizeObserver(placeCaption);
+    ro.observe(app);
+    if (captionEl) ro.observe(captionEl);
+  }
+  window.addEventListener("resize", placeCaption);
+  document.querySelectorAll("video").forEach((v) => {
+    v.addEventListener("loadedmetadata", placeCaption);
+    v.addEventListener("resize", placeCaption);
+  });
 
   function setWaiting(slide, on) {
     const box = mediaBox(slide);
@@ -219,6 +255,7 @@
       captionEl.innerHTML = '<span class="caption-inner">' +
         phrase.words.map((word) => `<span class="w">${escapeWord(word)}</span>`).join(" ") +
         "</span>";
+      placeCaption();
     }
     const apply = () => {
       captionEl.querySelectorAll(".w").forEach((el, i) => {
@@ -552,6 +589,7 @@
 
     window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
     main.focus({ preventScroll: true });
+    placeCaption();
     speakCurrent();
     if (!finished) startCaption();
   }
