@@ -74,7 +74,7 @@
       en: "Turista por Natureza guides: environmental fee, refund, ownership change, exemption, importing members, and receipt.",
       es: "Guías de Turista por Natureza: tasa ambiental, reembolso, titularidad, exención, importar integrantes y comprobante."
     },
-    heading: { pt: "Bem-vindo aos guias", en: "Welcome to the guides", es: "Bienvenido a las guías" },
+    heading: { pt: "Como Usar o Sistema", en: "How to Use the System", es: "Cómo Usar el Sistema" },
     welcome: {
       pt: "Passo a passo para usar o aplicativo na sua viagem. Escolha um tópico e siga na tela, no seu ritmo.",
       en: "A step-by-step path to use the app on your trip. Pick a topic and follow along at your own pace.",
