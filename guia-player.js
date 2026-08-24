@@ -16,10 +16,14 @@
     const s = document.createElement("style");
     s.id = "guia-player-css";
     s.textContent =
+      ".app{touch-action:pan-y}" +
       ".media video{width:100%;height:100%;object-fit:contain;object-position:center top;background:#0b1f18;display:block}" +
       ".media.is-waiting::after{content:\"\";position:absolute;left:50%;top:42%;width:36px;height:36px;margin:-18px 0 0 -18px;border:3px solid rgba(255,255,255,.22);border-top-color:#fff;border-radius:50%;animation:guia-spin .7s linear infinite;pointer-events:none}" +
       "@keyframes guia-spin{to{transform:rotate(360deg)}}" +
-      "@media (prefers-reduced-motion:reduce){.media.is-waiting::after{animation:none;border-top-color:rgba(255,255,255,.55)}}";
+      "@media (prefers-reduced-motion:reduce){.media.is-waiting::after{animation:none;border-top-color:rgba(255,255,255,.55)}}" +
+      ".pause-mark{position:absolute;left:50%;top:42%;z-index:12;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:rgba(11,31,24,.72);color:#fff;display:none;place-items:center;pointer-events:none;box-shadow:0 4px 18px rgba(0,0,0,.35)}" +
+      ".pause-mark svg{width:28px;height:28px;display:block}" +
+      ".app.is-paused .pause-mark{display:grid}";
     document.head.appendChild(s);
   }
 
@@ -32,10 +36,14 @@
   const main = document.getElementById("conteudo");
   const last = slides.length;
   let current = 0;
-  let startX = null;
-  let startY = null;
   const captionEl = document.getElementById("caption");
   const app = document.querySelector(".app");
+
+  const pauseMark = document.createElement("div");
+  pauseMark.className = "pause-mark";
+  pauseMark.setAttribute("aria-hidden", "true");
+  pauseMark.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+  app.appendChild(pauseMark);
 
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const narrateBtn = document.getElementById("narrate");
@@ -45,6 +53,16 @@
   const BGM_DUCK = 0.12;
   let voiceOn = localStorage.getItem("guia-narrate") !== "off";
   if (bgm) bgm.volume = BGM_VOL;
+
+  let userPaused = false;
+  let stepGen = 0;
+  let videoDone = false;
+  let audioDone = false;
+  let advanceTimer = 0;
+  let pausedCaptionTime = 0;
+  let mediaTimer = 0;
+  let stallTimer = 0;
+  let ptr = { id: null, x: 0, y: 0, t: 0 };
 
   function clipFor(step) {
     return clips.find((item) => Number(item.dataset.stepAudio) === step);
@@ -119,7 +137,10 @@
   clips.forEach((clip) => {
     clip.addEventListener("play", duckBgm);
     clip.addEventListener("pause", duckBgm);
-    clip.addEventListener("ended", duckBgm);
+    clip.addEventListener("ended", () => {
+      duckBgm();
+      if (clipFor(current) === clip) markAudioDone();
+    });
   });
 
   function setNarrateUi() {
@@ -139,8 +160,9 @@
   }
 
   function playWhenReady(el) {
-    if (!el) return;
+    if (!el || userPaused) return;
     const tryPlay = () => {
+      if (userPaused) return;
       const play = el.play();
       if (play && typeof play.catch === "function") play.catch(() => {});
     };
@@ -151,24 +173,71 @@
   function speakCurrent() {
     stopNarration();
     startBgm();
-    if (!voiceOn) return;
+    if (!voiceOn) {
+      markAudioDone();
+      return;
+    }
     const clip = clipFor(current);
-    if (!clip) return;
+    if (!clip) {
+      markAudioDone();
+      return;
+    }
     playWhenReady(clip);
   }
 
-  function resumeBlockedMedia() {
-    startBgm();
+  function audioDuration() {
     const clip = clipFor(current);
-    if (voiceOn && clip && clip.paused && !clip.ended && clip.currentTime < 0.2) {
-      playWhenReady(clip);
-      startCaption();
+    if (voiceOn && clip && Number.isFinite(clip.duration) && clip.duration > 0) return clip.duration;
+    return 0;
+  }
+
+  function videoDuration(video) {
+    if (!video) return 0;
+    if (Number.isFinite(video.duration) && video.duration > 0) return video.duration;
+    const ms = Number(video.dataset.durationMs);
+    return ms > 0 ? ms / 1000 : 0;
+  }
+
+  function syncVideoToNarration(video) {
+    if (!video) return;
+    const vDur = videoDuration(video);
+    const aDur = audioDuration();
+    const clip = clipFor(current);
+    if (!(vDur > 0) || !(aDur > 0) || !voiceOn) {
+      video.playbackRate = 1;
+      return;
     }
-    const slide = slides[current];
-    const video = slide && slide.querySelector("video");
-    if (video && video.paused && !video.ended && video.currentTime < 0.2) {
-      playWhenReady(video);
+    let rate = vDur / aDur;
+    if (clip && !clip.paused && !clip.ended) {
+      const aLeft = Math.max(0.08, aDur - (clip.currentTime || 0));
+      const vLeft = Math.max(0.08, vDur - (video.currentTime || 0));
+      rate = vLeft / aLeft;
     }
+    if (!Number.isFinite(rate) || rate <= 0) rate = 1;
+    video.playbackRate = Math.min(4, Math.max(0.25, rate));
+  }
+
+  function markVideoDone() {
+    if (userPaused) return;
+    videoDone = true;
+    maybeAdvance();
+  }
+
+  function markAudioDone() {
+    if (userPaused) return;
+    audioDone = true;
+    maybeAdvance();
+  }
+
+  function maybeAdvance() {
+    if (userPaused || app.classList.contains("is-done") || current >= last) return;
+    if (!videoDone || !audioDone) return;
+    const gen = stepGen;
+    clearTimeout(advanceTimer);
+    advanceTimer = setTimeout(() => {
+      if (gen !== stepGen || userPaused) return;
+      show(current + 1);
+    }, 280);
   }
 
   let captionRaf = 0;
@@ -268,6 +337,7 @@
   }
 
   function captionTime() {
+    if (userPaused) return pausedCaptionTime;
     const clip = clipFor(current);
     if (voiceOn && clip && !clip.paused && !clip.ended) return clip.currentTime || 0;
     if (captionClock) return (performance.now() - captionClock) / 1000;
@@ -276,9 +346,16 @@
   }
 
   function tickCaption() {
+    if (userPaused || app.classList.contains("is-done")) return;
+    const video = slides[current] && slides[current].querySelector("video");
+    if (video) syncVideoToNarration(video);
     const t = captionTime();
     renderCaption(t);
-    if (t < captionDuration + 0.35) captionRaf = requestAnimationFrame(tickCaption);
+    const clip = clipFor(current);
+    const stillGoing = t < captionDuration + 0.35
+      || (voiceOn && clip && !clip.ended)
+      || (video && !video.paused && !video.ended);
+    if (stillGoing) captionRaf = requestAnimationFrame(tickCaption);
   }
 
   function startCaption() {
@@ -292,9 +369,10 @@
     const text = slide.dataset.narrate || "";
     const run = () => {
       if (gen !== captionGen) return;
-      const next = (clip && Number.isFinite(clip.duration) && clip.duration > 0)
+      const aDur = audioDuration();
+      const next = aDur || ((clip && Number.isFinite(clip.duration) && clip.duration > 0)
         ? clip.duration
-        : fallback;
+        : fallback);
       captionDuration = next;
       captionPhrases = phrasePlan(text, captionDuration);
       if (!captionClock) captionClock = performance.now();
@@ -307,41 +385,89 @@
     run();
   }
 
+  function setPaused(on) {
+    userPaused = !!on;
+    app.classList.toggle("is-paused", userPaused);
+    if (userPaused) {
+      pausedCaptionTime = captionTime();
+      cancelAnimationFrame(captionRaf);
+      captionRaf = 0;
+      clearTimeout(advanceTimer);
+      setChrome(true);
+    } else {
+      captionClock = performance.now() - pausedCaptionTime * 1000;
+      setChrome(false);
+      if (!captionRaf) tickCaption();
+    }
+  }
+
+  function togglePause() {
+    if (app.classList.contains("is-done")) return;
+    if (userPaused) {
+      setPaused(false);
+      startBgm();
+      const slide = slides[current];
+      const video = slide && slide.querySelector("video");
+      const clip = clipFor(current);
+      if (video && !video.ended) playWhenReady(video);
+      if (voiceOn && clip && !clip.ended) playWhenReady(clip);
+      if (videoDone && audioDone) maybeAdvance();
+    } else {
+      const slide = slides[current];
+      const video = slide && slide.querySelector("video");
+      const clip = clipFor(current);
+      if (video) try { video.pause(); } catch (err) {}
+      if (clip) clip.pause();
+      if (bgm) bgm.pause();
+      setPaused(true);
+    }
+  }
+
+  function unlockOrPause() {
+    const clip = clipFor(current);
+    const video = slides[current] && slides[current].querySelector("video");
+    const audioBlocked = voiceOn && clip && clip.paused && !clip.ended && clip.currentTime < 0.2;
+    const videoBlocked = video && video.paused && !video.ended && video.currentTime < 0.2 && !userPaused;
+    if (!userPaused && (audioBlocked || videoBlocked)) {
+      startBgm();
+      if (audioBlocked) {
+        playWhenReady(clip);
+        startCaption();
+      }
+      if (videoBlocked) playWhenReady(video);
+      return;
+    }
+    togglePause();
+  }
+
   if (narrateBtn) {
-    narrateBtn.addEventListener("click", () => {
+    narrateBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
       voiceOn = !voiceOn;
       localStorage.setItem("guia-narrate", voiceOn ? "on" : "off");
       setNarrateUi();
+      const video = slides[current] && slides[current].querySelector("video");
+      if (video) syncVideoToNarration(video);
       if (voiceOn) {
-        speakCurrent();
-        startCaption();
+        audioDone = false;
+        if (!userPaused) {
+          speakCurrent();
+          startCaption();
+        }
       } else {
         const clip = clipFor(current);
         const t = clip ? clip.currentTime : 0;
         captionClock = performance.now() - t * 1000;
         clips.forEach((item) => item.pause());
+        markAudioDone();
       }
     });
   }
   setNarrateUi();
 
-  document.addEventListener("pointerdown", (e) => {
-    if (e.target.closest("#prev, #next, .replay-gif, .progress, #narrate")) return;
-    resumeBlockedMedia();
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowRight" || e.key === "ArrowLeft") return;
-    resumeBlockedMedia();
-  });
-
   function hideGifReplay(slide) {
     const box = slide && slide.querySelector(".media-replay");
     if (box) box.classList.remove("is-on");
-  }
-
-  function showGifReplay(slide) {
-    const box = slide && slide.querySelector(".media-replay");
-    if (box) box.classList.add("is-on");
   }
 
   function freezeGif(slide) {
@@ -356,100 +482,78 @@
     return !!(img && img.complete && img.naturalWidth > 0 && /\.gif(\?|#|$)/i.test(img.currentSrc || img.src));
   }
 
-  let mediaTimer = 0;
-  let mediaGen = 0;
-  let stallTimer = 0;
-
   function setChrome(on) {
-    app.classList.toggle("chrome-on", !!on);
-  }
-
-  app.addEventListener("pointerdown", (e) => {
-    if (app.classList.contains("is-done")) return;
-    if (e.target.closest("#prev, #next, .replay-gif, .progress")) return;
-    setChrome(true);
-  });
-
-  function finishMedia(slide) {
-    if (!slide || slides[current] !== slide) return;
-    setWaiting(slide, false);
-    const video = slide.querySelector("video");
-    if (video && !video.ended) {
-      try { video.pause(); } catch (err) {}
-    } else {
-      freezeGif(slide);
-    }
-    setChrome(true);
-    showGifReplay(slide);
+    app.classList.toggle("chrome-on", !!on || userPaused);
   }
 
   function armMediaEnd(slide) {
     clearTimeout(mediaTimer);
     clearTimeout(stallTimer);
-    mediaGen += 1;
-    const gen = mediaGen;
     hideGifReplay(slide);
     if (!slide) return;
-    setChrome(false);
+    if (!userPaused) setChrome(false);
+    const gen = stepGen;
     const video = slide.querySelector("video");
     const img = slide.querySelector("img");
     if (video) {
-      const startTimer = () => {
-        if (gen !== mediaGen || slides[current] !== slide) return;
-        const ms = (Number.isFinite(video.duration) && video.duration > 0)
-          ? video.duration * 1000
-          : Number(video.dataset.durationMs) || 12000;
-        clearTimeout(mediaTimer);
-        mediaTimer = setTimeout(() => {
-          if (gen !== mediaGen || slides[current] !== slide) return;
-          if (!video.paused && !video.ended) return;
-          finishMedia(slide);
-        }, ms + 400);
+      const applySync = () => {
+        if (gen !== stepGen) return;
+        syncVideoToNarration(video);
       };
       video.onended = () => {
-        if (gen !== mediaGen || slides[current] !== slide) return;
-        finishMedia(slide);
+        if (gen !== stepGen || slides[current] !== slide) return;
+        const clip = clipFor(current);
+        markVideoDone();
+        if (!voiceOn || !clip || (clip.paused && clip.currentTime < 0.15)) markAudioDone();
       };
       video.onplaying = () => {
-        if (gen !== mediaGen) return;
+        if (gen !== stepGen) return;
         setWaiting(slide, false);
         clearTimeout(stallTimer);
-        startTimer();
+        applySync();
       };
       video.onwaiting = () => {
-        if (gen !== mediaGen) return;
+        if (gen !== stepGen) return;
         setWaiting(slide, true);
         clearTimeout(stallTimer);
         stallTimer = setTimeout(() => {
-          if (gen !== mediaGen) return;
+          if (gen !== stepGen) return;
           setChrome(true);
         }, 8000);
       };
       video.onerror = () => {
-        if (gen !== mediaGen) return;
+        if (gen !== stepGen) return;
         fallbackToGif(slide, video);
       };
+      if (video.readyState >= 1) applySync();
+      else video.addEventListener("loadedmetadata", applySync, { once: true });
+      const clip = clipFor(current);
+      if (clip && !(Number.isFinite(clip.duration) && clip.duration > 0)) {
+        clip.addEventListener("loadedmetadata", applySync, { once: true });
+      }
       clearTimeout(stallTimer);
       stallTimer = setTimeout(() => {
-        if (gen !== mediaGen || slides[current] !== slide) return;
+        if (gen !== stepGen || slides[current] !== slide) return;
         if (video.readyState < 2) fallbackToGif(slide, video);
         else setChrome(true);
       }, 10000);
-      if (!video.paused && video.readyState >= 2) startTimer();
       return;
     }
     if (!img || img.dataset.gifMissing === "1") {
-      setChrome(true);
+      markVideoDone();
       return;
     }
-    const ms = Number(img.dataset.durationMs) || 12000;
     const startTimer = () => {
-      if (gen !== mediaGen || slides[current] !== slide) return;
+      if (gen !== stepGen || slides[current] !== slide) return;
+      const gifMs = Number(img.dataset.durationMs) || 12000;
+      const audMs = audioDuration() * 1000;
+      const ms = Math.max(gifMs, audMs || 0);
       clearTimeout(mediaTimer);
       mediaTimer = setTimeout(() => {
-        if (gen !== mediaGen || slides[current] !== slide) return;
-        finishMedia(slide);
-      }, ms + 280);
+        if (gen !== stepGen || slides[current] !== slide) return;
+        freezeGif(slide);
+        markVideoDone();
+      }, ms + 80);
     };
     if (gifReady(img)) startTimer();
     else img.addEventListener("load", startTimer, { once: true });
@@ -460,7 +564,7 @@
     const still = video && video.dataset.still;
     setWaiting(slide, false);
     if (!gif) {
-      finishMedia(slide);
+      markVideoDone();
       return;
     }
     const img = document.createElement("img");
@@ -472,7 +576,7 @@
     img.dataset.durationMs = video.dataset.durationMs || "12000";
     img.addEventListener("error", () => {
       if (still) img.src = still;
-      setChrome(true);
+      markVideoDone();
     });
     img.src = gif;
     video.replaceWith(img);
@@ -483,7 +587,7 @@
     const video = slide && slide.querySelector("video");
     const img = slide && slide.querySelector("img");
     hideGifReplay(slide);
-    setChrome(false);
+    if (!userPaused) setChrome(false);
     if (video) {
       video.muted = true;
       video.playsInline = true;
@@ -492,12 +596,13 @@
       video.preload = "auto";
       setWaiting(slide, true);
       try { video.currentTime = 0; } catch (err) {}
-      playWhenReady(video);
+      syncVideoToNarration(video);
+      if (!userPaused) playWhenReady(video);
       armMediaEnd(slide);
       return;
     }
     if (!img || img.dataset.gifMissing === "1") {
-      setChrome(true);
+      markVideoDone();
       return;
     }
     const gif = img.dataset.gif;
@@ -548,22 +653,33 @@
     });
   }
 
+  function isChromeTarget(el) {
+    return !!(el && el.closest && el.closest("#prev, #next, .replay-gif, .progress, #narrate, .back, .skip"));
+  }
+
   function show(n) {
     stopNarration();
     stopCaption();
     pauseAllMedia();
+    clearTimeout(mediaTimer);
+    clearTimeout(stallTimer);
+    clearTimeout(advanceTimer);
     const nextIndex = Math.max(0, Math.min(last, n));
     current = nextIndex;
     const finished = current === last;
+    stepGen += 1;
+    videoDone = false;
+    audioDone = false;
+    userPaused = false;
+    app.classList.remove("is-paused");
     app.classList.toggle("is-done", finished);
 
     slides.forEach((s, i) => s.classList.toggle("active", !finished && i === current));
     done.classList.toggle("active", finished);
     if (finished) {
-      clearTimeout(mediaTimer);
-      clearTimeout(stallTimer);
       setWaiting(slides[Math.max(0, last - 1)], false);
       setChrome(true);
+      videoDone = true;
     } else {
       setChrome(false);
       replayMedia(slides[current]);
@@ -591,12 +707,16 @@
     main.focus({ preventScroll: true });
     placeCaption();
     speakCurrent();
-    if (!finished) startCaption();
+    startCaption();
   }
 
   document.querySelectorAll(".replay-gif").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
+      userPaused = false;
+      app.classList.remove("is-paused");
+      videoDone = false;
+      audioDone = false;
       replayMedia(slides[current]);
       speakCurrent();
       startCaption();
@@ -609,35 +729,54 @@
   document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowRight") show(current + 1);
     if (e.key === "ArrowLeft") show(current - 1);
+    if (e.key === " " || e.code === "Space") {
+      if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "BUTTON" || e.target.tagName === "TEXTAREA")) return;
+      e.preventDefault();
+      unlockOrPause();
+    }
   });
 
-  document.addEventListener("touchstart", (e) => {
-    startX = e.changedTouches[0].clientX;
-    startY = e.changedTouches[0].clientY;
-  }, { passive: true });
-
-  document.addEventListener("touchend", (e) => {
-    if (startX === null) return;
-    const dx = e.changedTouches[0].clientX - startX;
-    const dy = e.changedTouches[0].clientY - startY;
-    if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.4) {
-      show(current + (dx < 0 ? 1 : -1));
+  app.addEventListener("pointerdown", (e) => {
+    if (e.button && e.button !== 0) return;
+    if (isChromeTarget(e.target)) {
+      ptr.id = null;
+      return;
     }
-    startX = startY = null;
-  }, { passive: true });
+    ptr = { id: e.pointerId, x: e.clientX, y: e.clientY, t: Date.now() };
+  });
+
+  app.addEventListener("pointerup", (e) => {
+    if (ptr.id !== e.pointerId) return;
+    const dx = e.clientX - ptr.x;
+    const dy = e.clientY - ptr.y;
+    const dt = Date.now() - ptr.t;
+    ptr.id = null;
+    if (isChromeTarget(e.target)) return;
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.25) {
+      show(current + (dx < 0 ? 1 : -1));
+      return;
+    }
+    if (dt < 550 && Math.abs(dx) < 22 && Math.abs(dy) < 22) {
+      unlockOrPause();
+    }
+  });
+
+  app.addEventListener("pointercancel", () => {
+    ptr.id = null;
+  });
 
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
-      stopNarration();
-      stopCaption();
-      pauseAllMedia();
-      if (bgm) bgm.pause();
-    } else {
-      startBgm();
-      if (current < last) {
-        replayMedia(slides[current]);
-        speakCurrent();
-        startCaption();
+      if (!userPaused && !app.classList.contains("is-done")) {
+        const slide = slides[current];
+        const video = slide && slide.querySelector("video");
+        const clip = clipFor(current);
+        if (video) try { video.pause(); } catch (err) {}
+        if (clip) clip.pause();
+        if (bgm) bgm.pause();
+        setPaused(true);
+      } else if (bgm) {
+        bgm.pause();
       }
     }
   });

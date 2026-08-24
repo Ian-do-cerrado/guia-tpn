@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#1c4c23">
   <meta name="color-scheme" content="light">
   <meta name="description" content="Guia passo a passo para transferir a taxa ambiental para outra pessoa no Turista por Natureza.">
-  <title>Como mudar o titular da taxa</title>
+  <title>Como Mudar o Titular da Taxa ou Data</title>
   <style>
     :root {
       --green: #1c4c23;
@@ -199,19 +199,22 @@
       font-variant-numeric: tabular-nums;
       line-height: 1;
       cursor: pointer;
+      transition: transform .55s cubic-bezier(.22, 1, .36, 1), background-color .45s ease, color .45s ease, box-shadow .55s ease;
     }
     .app.is-done .progress button { border-color: var(--white); }
     .progress button[aria-current="step"] {
       background: var(--green);
       color: var(--white);
-      transform: scale(1.08);
+      transform: scale(1.06);
+      box-shadow: 0 0 0 4px rgba(255,255,255,.18);
     }
     .progress button.done {
       background: var(--green-mid);
       color: var(--green-dark);
     }
     @media (prefers-reduced-motion: reduce) {
-      .progress button[aria-current="step"] { transform: none; }
+      .progress button { transition: none; }
+      .progress button[aria-current="step"] { transform: none; box-shadow: none; }
     }
     @media (max-width: 360px) {
       .progress button { width: 40px; height: 40px; }
@@ -542,7 +545,7 @@
           </svg>
         </a>
         <div>
-          <h1>Como mudar o titular da taxa</h1>
+          <h1>Como Mudar o Titular da Taxa ou Data</h1>
           <p class="lede">Turista por Natureza · transfira a taxa ambiental para outra pessoa</p>
           <p class="credit">Música: sakuracloud — miffy cafe [NCS Release]</p>
         </div>

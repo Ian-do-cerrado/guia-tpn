@@ -109,14 +109,14 @@
       },
       {
         href: "guia-mudanca-titularidade.html",
-        title: { pt: "Como mudar o titular da taxa", en: "How to change the fee holder", es: "Cómo cambiar el titular de la tasa" },
+        title: { pt: "Como Mudar o Titular da Taxa ou Data", en: "How to Change the Fee Holder or Date", es: "Cómo Cambiar el Titular de la Tasa o la Fecha" },
         desc: {
           pt: "Transfira a taxa ambiental de uma pessoa para outra no grupo.",
           en: "Transfer the environmental fee from one person to another in the group.",
           es: "Transfiera la tasa ambiental de una persona a otra en el grupo."
         },
         meta: { pt: "4 passos · com narração", en: "4 steps · with narration", es: "4 pasos · con narración" },
-        search: "titular titularidade transferir mudar troca pessoa holder ownership change transfer"
+        search: "titular titularidade transferir mudar troca pessoa data datas date holder ownership change transfer"
       },
       {
         href: "guia-isencao-bonitense.html",
@@ -418,7 +418,7 @@
       ]
     },
     titularidade: {
-      title: { pt: "Como mudar o titular da taxa", en: "How to change the fee holder", es: "Cómo cambiar el titular de la tasa" },
+      title: { pt: "Como Mudar o Titular da Taxa ou Data", en: "How to Change the Fee Holder or Date", es: "Cómo Cambiar el Titular de la Tasa o la Fecha" },
       description: {
         pt: "Guia para transferir a taxa ambiental de uma pessoa para outra no grupo.",
         en: "Guide to transfer the environmental fee from one person to another in the group.",
