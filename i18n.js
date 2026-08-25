@@ -74,7 +74,7 @@
       en: "Turista por Natureza guides: registration, environmental fee, refund, ownership change, exemption, importing members, and receipt.",
       es: "Guías de Turista por Natureza: cadastro, tasa ambiental, reembolso, titularidad, exención, importar integrantes y comprobante."
     },
-    heading: { pt: "Como Usar o Sistema", en: "How to Use the System", es: "Cómo Usar el Sistema" },
+    heading: { pt: "Como usar o sistema", en: "How to use the system", es: "Cómo usar el sistema" },
     welcome: {
       pt: "Passo a passo para usar o aplicativo na sua viagem. Escolha um tópico e siga na tela, no seu ritmo.",
       en: "A step-by-step path to use the app on your trip. Pick a topic and follow along at your own pace.",
@@ -98,7 +98,7 @@
       },
       {
         href: "guia-taxa-ambiental.html",
-        title: { pt: "Como pagar a taxa ambiental", en: "How to pay the environmental fee", es: "Cómo pagar la tasa ambiental" },
+        title: { pt: "Como pagar a Taxa de Conservação Ambiental", en: "How to pay the environmental fee", es: "Cómo pagar la tasa ambiental" },
         desc: {
           pt: "Cadastre-se, crie o grupo e pague a Taxa de Conservação Ambiental.",
           en: "Register, create the group, and pay the environmental fee.",
@@ -120,7 +120,7 @@
       },
       {
         href: "guia-mudanca-titularidade.html",
-        title: { pt: "Como Mudar o Titular da Taxa ou Data", en: "How to Change the Fee Holder or Date", es: "Cómo Cambiar el Titular de la Tasa o la Fecha" },
+        title: { pt: "Como mudar o titular da taxa ou data", en: "How to change the fee holder or date", es: "Cómo cambiar el titular de la tasa o la fecha" },
         desc: {
           pt: "Transfira a taxa ambiental de uma pessoa para outra no grupo.",
           en: "Transfer the environmental fee from one person to another in the group.",
@@ -167,7 +167,7 @@
 
   const GUIDES = {
     taxa: {
-      title: { pt: "Como pagar a taxa ambiental", en: "How to pay the environmental fee", es: "Cómo pagar la tasa ambiental" },
+      title: { pt: "Como pagar a Taxa de Conservação Ambiental", en: "How to pay the environmental fee", es: "Cómo pagar la tasa ambiental" },
       description: {
         pt: "Guia passo a passo para se cadastrar, criar o grupo e pagar a Taxa de Conservação Ambiental de Bonito.",
         en: "Step-by-step guide to register, create the group, and pay the Taxa de Conservação Ambiental de Bonito.",
@@ -552,7 +552,7 @@
       ]
     },
     titularidade: {
-      title: { pt: "Como Mudar o Titular da Taxa ou Data", en: "How to Change the Fee Holder or Date", es: "Cómo Cambiar el Titular de la Tasa o la Fecha" },
+      title: { pt: "Como mudar o titular da taxa ou data", en: "How to change the fee holder or date", es: "Cómo cambiar el titular de la tasa o la fecha" },
       description: {
         pt: "Guia para transferir a taxa ambiental de uma pessoa para outra no grupo.",
         en: "Guide to transfer the environmental fee from one person to another in the group.",
