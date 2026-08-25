@@ -70,9 +70,9 @@
       es: "Turista por Natureza · Guías"
     },
     description: {
-      pt: "Guias do Turista por Natureza: taxa ambiental, reembolso, titularidade, isenção, importar integrantes e comprovante.",
-      en: "Turista por Natureza guides: environmental fee, refund, ownership change, exemption, importing members, and receipt.",
-      es: "Guías de Turista por Natureza: tasa ambiental, reembolso, titularidad, exención, importar integrantes y comprobante."
+      pt: "Guias do Turista por Natureza: cadastro, taxa ambiental, reembolso, titularidade, isenção, importar integrantes e comprovante.",
+      en: "Turista por Natureza guides: registration, environmental fee, refund, ownership change, exemption, importing members, and receipt.",
+      es: "Guías de Turista por Natureza: cadastro, tasa ambiental, reembolso, titularidad, exención, importar integrantes y comprobante."
     },
     heading: { pt: "Como Usar o Sistema", en: "How to Use the System", es: "Cómo Usar el Sistema" },
     welcome: {
@@ -86,15 +86,26 @@
     logoAlt: { pt: "Turista por natureza", en: "Turista por natureza", es: "Turista por natureza" },
     cards: [
       {
+        href: "guia-fazer-cadastro.html",
+        title: { pt: "Como fazer seu cadastro", en: "How to create your account", es: "Cómo crear su cuenta" },
+        desc: {
+          pt: "Abra Novo Cadastro, preencha os dados obrigatórios e salve.",
+          en: "Open Novo Cadastro, fill in the required details, and save.",
+          es: "Abra Novo Cadastro, complete los datos obligatorios y guarde."
+        },
+        meta: { pt: "3 passos · com narração", en: "3 steps · with narration", es: "3 pasos · con narración" },
+        search: "cadastro conta novo login nome cpf documento salvar signup register account"
+      },
+      {
         href: "guia-taxa-ambiental.html",
         title: { pt: "Como pagar a taxa ambiental", en: "How to pay the environmental fee", es: "Cómo pagar la tasa ambiental" },
         desc: {
-          pt: "Cadastre-se, monte o grupo, inclua quem viaja e pague a taxa.",
-          en: "Sign up, create the group, add travelers, and pay the fee.",
-          es: "Regístrese, arme el grupo, incluya a quienes viajan y pague la tasa."
+          pt: "Cadastre-se, crie o grupo e pague a Taxa de Conservação Ambiental.",
+          en: "Register, create the group, and pay the environmental fee.",
+          es: "Regístrese, cree el grupo y pague la tasa ambiental."
         },
-        meta: { pt: "5 passos · com narração", en: "5 steps · with narration", es: "5 pasos · con narración" },
-        search: "pagar pagamento taxa ambiental cadastro grupo viagem pay fee environmental signup group refund"
+        meta: { pt: "6 passos · com narração", en: "6 steps · with narration", es: "6 pasos · con narración" },
+        search: "pagar pagamento taxa ambiental cadastro grupo cartao pix comprovante pay fee environmental card register"
       },
       {
         href: "guia-pedido-reembolso.html",
@@ -158,158 +169,281 @@
     taxa: {
       title: { pt: "Como pagar a taxa ambiental", en: "How to pay the environmental fee", es: "Cómo pagar la tasa ambiental" },
       description: {
-        pt: "Guia passo a passo para cadastrar, criar o grupo e pagar a taxa ambiental no Turista por Natureza.",
-        en: "Step-by-step guide to sign up, create the group, and pay the environmental fee in Turista por Natureza.",
-        es: "Guía paso a paso para registrarse, crear el grupo y pagar la tasa ambiental en Turista por Natureza."
+        pt: "Guia passo a passo para se cadastrar, criar o grupo e pagar a Taxa de Conservação Ambiental de Bonito.",
+        en: "Step-by-step guide to register, create the group, and pay the Taxa de Conservação Ambiental de Bonito.",
+        es: "Guía paso a paso para registrarse, crear el grupo y pagar la Taxa de Conservação Ambiental de Bonito."
       },
       lede: {
-        pt: "Turista por Natureza · cadastre-se, crie o grupo e inclua quem viaja",
-        en: "Turista por Natureza · sign up, create the group, and add travelers",
-        es: "Turista por Natureza · regístrese, cree el grupo e incluya a quienes viajan"
+        pt: "Turista por Natureza · cadastre-se, crie o grupo e pague a taxa",
+        en: "Turista por Natureza · register, create the group, and pay the fee",
+        es: "Turista por Natureza · regístrese, cree el grupo y pague la tasa"
       },
       statusDone: {
-        pt: "Tudo certo · pague a taxa no app",
-        en: "All set · pay the fee in the app",
-        es: "Listo · pague la tasa en la app"
+        pt: "Tudo certo · confira o status Pago",
+        en: "All set · check the Pago status",
+        es: "Listo · compruebe el estado Pago"
       },
       doneNarrate: {
-        pt: "Guia concluído. Cadastro, grupo e pagamento já foram explicados. No aplicativo, confira se o status da taxa ambiental ficou Pago.",
-        en: "Guide complete. Sign-up, group, and payment were covered. In the app, check that the environmental fee status is Pago.",
-        es: "Guía completada. Registro, grupo y pago ya fueron explicados. En la aplicación, compruebe que el estado de la tasa ambiental quedó Pago."
+        pt: "Guia concluído. Você se cadastrou, criou o grupo e pagou a taxa. No aplicativo, confira se o status ficou Pago.",
+        en: "Guide complete. You registered, created the group, and paid the fee. In the app, check that the status is Pago.",
+        es: "Guía completada. Se registró, creó el grupo y pagó la tasa. En la aplicación, compruebe que el estado quedó Pago."
       },
       doneLead: {
-        pt: "Cadastro, grupo e passageiros estão prontos. A taxa ambiental se paga no próprio grupo, em Taxas e serviços, como no passo 5.",
-        en: "Sign-up, group, and passengers are ready. The environmental fee is paid in the group, under Taxas e serviços, as in step 5.",
-        es: "Registro, grupo y pasajeros están listos. La tasa ambiental se paga en el propio grupo, en Taxas e serviços, como en el paso 5."
+        pt: "Cadastre-se, crie o grupo, pague a taxa e só saia da tela depois de ver o status Pago.",
+        en: "Register, create the group, pay the fee, and leave the screen only after you see the status Pago.",
+        es: "Regístrese, cree el grupo, pague la tasa y salga de la pantalla solo después de ver el estado Pago."
       },
-      doneTipLabel: { pt: "Lembrete", en: "Reminder", es: "Recordatorio" },
+      doneTipLabel: { pt: "Pix", en: "Pix", es: "Pix" },
       doneTipHtml: {
-        pt: "Se aparecer um link de pagamento, ele vale por 24 horas. Só saia da tela depois de ver o status <b>Pago</b>.",
-        en: "If a payment link appears, it is valid for 24 hours. Leave the screen only after you see the status <b>Pago</b>.",
-        es: "Si aparece un enlace de pago, vale por 24 horas. Salga de la pantalla solo después de ver el estado <b>Pago</b>."
+        pt: "No passo <b>Modo</b>, a aba Pix gera o QR para pagar no app do banco. Sem dia marcado, o botão <b>Pagar</b> não aparece.",
+        en: "In the <b>Modo</b> step, the Pix tab creates the QR to pay in the bank app. Without a marked day, the <b>Pagar</b> button does not appear.",
+        es: "En el paso <b>Modo</b>, la pestaña Pix genera el QR para pagar en la app del banco. Sin un día marcado, el botón <b>Pagar</b> no aparece."
       },
       steps: [
         {
-          title: { pt: "Entre ou crie sua conta", en: "Sign in or create your account", es: "Entre o cree su cuenta" },
+          title: { pt: "Toque em Novo Cadastro", en: "Tap Novo Cadastro", es: "Toque Novo Cadastro" },
           narrate: {
-            pt: "Passo 1. Entre ou crie sua conta. Abra o aplicativo ou o site Turista por Natureza. Se é a primeira vez, toque em Novo Cadastro. Se já tem conta, informe o localizador ou documento, a senha ou o celular com DDD, e toque em Entrar. O login de agência de turismo é só para empresas.",
-            en: "Step 1. Sign in or create your account. Open the Turista por Natureza app or website. If this is your first time, tap Novo Cadastro. If you already have an account, enter the locator or document, the password or the mobile number with area code, and tap Entrar. The tourism-agency login is only for companies.",
-            es: "Paso 1. Entre o cree su cuenta. Abra la aplicación o el sitio Turista por Natureza. Si es la primera vez, toque Novo Cadastro. Si ya tiene cuenta, informe el localizador o documento, la contraseña o el celular con código de área, y toque Entrar. El acceso de agencia de turismo es solo para empresas."
+            pt: "Na tela de login, toque em Novo Cadastro.",
+            en: "On the login screen, tap Novo Cadastro.",
+            es: "En la pantalla de acceso, toque Novo Cadastro."
           },
           alt: {
-            pt: "Tela de login do Turista por Natureza, com os campos de localizador e senha e os botões Entrar e Novo Cadastro.",
-            en: "Turista por Natureza login screen, with locator and password fields and the Entrar and Novo Cadastro buttons.",
-            es: "Pantalla de acceso de Turista por Natureza, con los campos de localizador y contraseña y los botones Entrar y Novo Cadastro."
+            pt: "Tela de login do Turista por Natureza, com o ponteiro no botão Novo Cadastro.",
+            en: "Turista por Natureza login screen, with the pointer on the Novo Cadastro button.",
+            es: "Pantalla de acceso de Turista por Natureza, con el puntero en el botón Novo Cadastro."
           },
           howto: [
             { pt: "Abra o aplicativo ou o site <b>Turista por Natureza</b>.", en: "Open the <b>Turista por Natureza</b> app or website.", es: "Abra la aplicación o el sitio <b>Turista por Natureza</b>." },
-            { pt: "Se é a primeira vez, toque em <b>Novo Cadastro</b>.", en: "If this is your first time, tap <b>Novo Cadastro</b>.", es: "Si es la primera vez, toque <b>Novo Cadastro</b>." },
-            { pt: "Se já tem conta, informe o <b>localizador ou documento</b>, a senha (ou o celular com DDD) e toque em <b>Entrar</b>.", en: "If you already have an account, enter the <b>locator or document</b>, the password (or the mobile number with area code) and tap <b>Entrar</b>.", es: "Si ya tiene cuenta, informe el <b>localizador o documento</b>, la contraseña (o el celular con código de área) y toque <b>Entrar</b>." }
+            { pt: "Na tela de login, toque em <b>Novo Cadastro</b>.", en: "On the login screen, tap <b>Novo Cadastro</b>.", es: "En la pantalla de acceso, toque <b>Novo Cadastro</b>." }
           ],
-          tipLabel: { pt: "Dica", en: "Tip", es: "Consejo" },
+          tipLabel: { pt: "Este caminho", en: "This path", es: "Este camino" },
           tipHtml: {
-            pt: "O link “Login agência de turismo” é só para empresas. Turista usa Entrar ou Novo Cadastro.",
-            en: "The “Login agência de turismo” link is only for companies. Visitors use Entrar or Novo Cadastro.",
-            es: "El enlace “Login agência de turismo” es solo para empresas. El turista usa Entrar o Novo Cadastro."
+            pt: "Este guia usa o caminho clássico. Não use o atalho <b>Pagar minha Tx. Ambiental</b>.",
+            en: "This guide uses the classic path. Do not use the <b>Pagar minha Tx. Ambiental</b> shortcut.",
+            es: "Esta guía usa el camino clásico. No use el atajo <b>Pagar minha Tx. Ambiental</b>."
           }
         },
         {
-          title: { pt: "Informe celular e e-mail e salve", en: "Enter mobile and email, then save", es: "Informe celular y correo y guarde" },
+          title: { pt: "Preencha os campos obrigatórios", en: "Fill in the required fields", es: "Complete los campos obligatorios" },
           narrate: {
-            pt: "Passo 2. Informe celular e e-mail e salve. Role até Dados opcionais. Preencha celular e e-mail para montar o grupo com amigos e família. A senha é opcional. Se ficar em branco, o celular pode valer como senha. Toque em Salvar. Se o cadastro é seu, desmarque permitir alteração por terceiros.",
-            en: "Step 2. Enter mobile and email, then save. Scroll to Dados opcionais. Fill in mobile and email so you can build the group with friends and family. The password is optional. If you leave it blank, the mobile number can work as the password. Tap Salvar. If this registration is yours, uncheck allow changes by third parties.",
-            es: "Paso 2. Informe celular y correo y guarde. Baje hasta Dados opcionais. Complete celular y correo para armar el grupo con amigos y familia. La contraseña es opcional. Si queda en blanco, el celular puede valer como contraseña. Toque Salvar. Si el cadastro es suyo, desmarque permitir cambio por terceros."
+            pt: "Preencha os campos obrigatórios, os que têm asterisco. Informe o nome. Escolha o sexo. Informe a data de nascimento. No Brasil, o tipo de documento é o CPF. Digite o número do documento. Confira o país. Escolha o estado. Depois escolha a cidade. Siga a ordem da tela, de cima para baixo. Confira o estado e a cidade da viagem antes de seguir.",
+            en: "Fill in the required fields, the ones with an asterisk. Enter the name. Choose the sex. Enter the date of birth. In Brazil, the document type is CPF. Type the document number. Check the country. Choose the state. Then choose the city. Follow the order on the screen, from top to bottom. Check the trip state and city before you continue.",
+            es: "Complete los campos obligatorios, los que tienen asterisco. Informe el nombre. Elija el sexo. Informe la fecha de nacimiento. En Brasil, el tipo de documento es el CPF. Escriba el número del documento. Confirme el país. Elija el estado. Después elija la ciudad. Siga el orden de la pantalla, de arriba hacia abajo. Confirme el estado y la ciudad del viaje antes de seguir."
           },
           alt: {
-            pt: "Tela de cadastro. Uma indicação aponta para o campo Celular, acima do e-mail e do botão SALVAR.",
-            en: "Registration screen. A pointer highlights the Celular field, above email and the SALVAR button.",
-            es: "Pantalla de registro. Una indicación apunta al campo Celular, encima del correo y del botón SALVAR."
+            pt: "Formulário de cadastro, com nome, sexo, nascimento, CPF, país, UF e cidade.",
+            en: "Registration form, with name, sex, date of birth, CPF, country, state, and city.",
+            es: "Formulario de cadastro, con nombre, sexo, nacimiento, CPF, país, UF y ciudad."
           },
           howto: [
-            { pt: "Role até <b>Dados opcionais</b>.", en: "Scroll to <b>Dados opcionais</b>.", es: "Baje hasta <b>Dados opcionais</b>." },
-            { pt: "Preencha <b>celular</b> e <b>e-mail</b> — assim você monta o grupo com amigos e família.", en: "Fill in <b>celular</b> and <b>e-mail</b> so you can build the group with friends and family.", es: "Complete <b>celular</b> y <b>e-mail</b> para armar el grupo con amigos y familia." },
-            { pt: "A senha é opcional. Se ficar em branco, o celular pode valer como senha.", en: "The password is optional. If you leave it blank, the mobile number can work as the password.", es: "La contraseña es opcional. Si queda en blanco, el celular puede valer como contraseña." },
+            { pt: "Preencha <b>Nome</b>, <b>Sexo</b> e <b>Nascimento</b>.", en: "Fill in <b>Nome</b>, <b>Sexo</b>, and <b>Nascimento</b>.", es: "Complete <b>Nome</b>, <b>Sexo</b> y <b>Nascimento</b>." },
+            { pt: "Informe o tipo e o número do <b>documento</b>. No Brasil, use o CPF.", en: "Enter the <b>document</b> type and number. In Brazil, use the CPF.", es: "Informe el tipo y el número del <b>documento</b>. En Brasil, use el CPF." },
+            { pt: "Confira <b>País</b>, <b>UF</b> e <b>Cidade</b>.", en: "Check <b>País</b>, <b>UF</b>, and <b>Cidade</b>.", es: "Confirme <b>País</b>, <b>UF</b> y <b>Cidade</b>." },
+            { pt: "Se você for o dono do cadastro, desmarque <b>Permitir alteração do cadastro por terceiros</b>.", en: "If you own this registration, uncheck <b>Permitir alteração do cadastro por terceiros</b>.", es: "Si usted es el dueño del cadastro, desmarque <b>Permitir alteração do cadastro por terceiros</b>." }
+          ],
+          tipLabel: { pt: "Nome", en: "Name", es: "Nombre" },
+          tipHtml: {
+            pt: "Use nome e sobrenome, se o app pedir.",
+            en: "Use first and last name if the app asks for them.",
+            es: "Use nombre y apellido, si la aplicación lo pide."
+          }
+        },
+        {
+          title: { pt: "Celular, e-mail e Salvar", en: "Mobile, email, and Save", es: "Celular, correo y Salvar" },
+          narrate: {
+            pt: "Role até Dados Opcionais. Toque em Senha e deixe em branco para usar o celular como senha. Preencha o celular e o e-mail. Sem eles, o botão de criar grupo fica bloqueado. Toque em Salvar. Se o cadastro for aceito, aparece o aviso de sucesso.",
+            en: "Scroll to Dados Opcionais. Tap Senha and leave it blank to use the mobile number as the password. Fill in the mobile number and email. Without them, the create-group button stays locked. Tap Salvar. If the registration is accepted, a success notice appears.",
+            es: "Baje hasta Dados Opcionais. Toque Senha y déjela en blanco para usar el celular como contraseña. Complete el celular y el correo. Sin ellos, el botón de crear grupo queda bloqueado. Toque Salvar. Si el cadastro es aceptado, aparece el aviso de éxito."
+          },
+          alt: {
+            pt: "Dados Opcionais, com senha em branco, celular, e-mail e o ponteiro em SALVAR.",
+            en: "Dados Opcionais, with a blank password, mobile, email, and the pointer on SALVAR.",
+            es: "Dados Opcionais, con contraseña en blanco, celular, correo y el puntero en SALVAR."
+          },
+          howto: [
+            { pt: "Role até <b>Dados Opcionais</b>. Toque em <b>Senha</b> e deixe em branco.", en: "Scroll to <b>Dados Opcionais</b>. Tap <b>Senha</b> and leave it blank.", es: "Baje hasta <b>Dados Opcionais</b>. Toque <b>Senha</b> y déjela en blanco." },
+            { pt: "Preencha <b>Celular</b> e <b>Email</b>.", en: "Fill in <b>Celular</b> and <b>Email</b>.", es: "Complete <b>Celular</b> y <b>Email</b>." },
             { pt: "Toque em <b>SALVAR</b>.", en: "Tap <b>SALVAR</b>.", es: "Toque <b>SALVAR</b>." }
           ],
-          tipLabel: { pt: "Se o cadastro é seu", en: "If this registration is yours", es: "Si el cadastro es suyo" },
+          tipLabel: { pt: "Senha em branco", en: "Blank password", es: "Contraseña en blanco" },
           tipHtml: {
-            pt: "Desmarque “Permitir alteração por terceiros”. Deixe marcado só se uma agência ou guia for cuidar disso para você.",
-            en: "Uncheck “Permitir alteração por terceiros”. Leave it checked only if an agency or guide will manage this for you.",
-            es: "Desmarque “Permitir alteração por terceiros”. Déjelo marcado solo si una agencia o guía se encargará de esto por usted."
+            pt: "O aviso da tela é: <b>Deixe em branco para usar o celular como senha</b>. Sem celular e e-mail, o app avisa e o mais de criar grupo fica bloqueado.",
+            en: "The on-screen note is: <b>Deixe em branco para usar o celular como senha</b>. Without mobile and email, the app warns you and the create-group plus stays locked.",
+            es: "El aviso de la pantalla es: <b>Deixe em branco para usar o celular como senha</b>. Sin celular y correo, la aplicación avisa y el más de crear grupo queda bloqueado."
           }
         },
         {
-          title: { pt: "Crie o grupo da viagem", en: "Create the trip group", es: "Cree el grupo del viaje" },
+          title: { pt: "Crie o grupo e entre", en: "Create the group and enter", es: "Cree el grupo y entre" },
           narrate: {
-            pt: "Passo 3. Crie o grupo da viagem. Na barra de baixo, toque em Grupos. Toque no botão mais para criar o grupo. Informe as datas de chegada e saída e salve. Quando aparecer o localizador, toque em Logar no grupo. Para adicionar pessoas ao grupo, toque no ícone Passageiros e preencha os dados no próximo passo.",
-            en: "Step 3. Create the trip group. On the bottom bar, tap Grupos. Tap the plus button to create the group. Enter the arrival and departure dates and save. When the locator appears, tap Logar no grupo. To add people to the group, tap the Passageiros icon and fill in the details in the next step.",
-            es: "Paso 3. Cree el grupo del viaje. En la barra de abajo, toque Grupos. Toque el botón más para crear el grupo. Informe las fechas de llegada y salida y guarde. Cuando aparezca el localizador, toque Logar no grupo. Para agregar personas al grupo, toque el ícono Passageiros y complete los datos en el siguiente paso."
+            pt: "Feche o aviso, se aparecer. Abra a aba grupos. Toque no mais. Confira o período De e Até e toque em Salvar. Depois toque em Logar no grupo. Confira as datas do período antes de salvar.",
+            en: "Close the notice if it appears. Open the grupos tab. Tap plus. Check the De and Até dates and tap Salvar. Then tap Logar no grupo. Check the trip dates before you save.",
+            es: "Cierre el aviso, si aparece. Abra la pestaña grupos. Toque el más. Confirme el período De y Até y toque Salvar. Después toque Logar no grupo. Confirme las fechas del período antes de guardar."
           },
           alt: {
-            pt: "Aba Grupos vazia. Uma indicação aponta para o botão + no canto inferior direito.",
-            en: "Empty Grupos tab. A pointer highlights the + button in the lower-right corner.",
-            es: "Pestaña Grupos vacía. Una indicación apunta al botón + en la esquina inferior derecha."
+            pt: "Aba grupos, formulário do período e o botão Logar no grupo.",
+            en: "Grupos tab, period form, and the Logar no grupo button.",
+            es: "Pestaña grupos, formulario del período y el botón Logar no grupo."
           },
           howto: [
-            { pt: "Na barra de baixo, toque em <b>GRUPOS</b>.", en: "On the bottom bar, tap <b>GRUPOS</b>.", es: "En la barra de abajo, toque <b>GRUPOS</b>." },
-            { pt: "Toque no botão verde <b>+</b> para criar o grupo.", en: "Tap the green <b>+</b> button to create the group.", es: "Toque el botón verde <b>+</b> para crear el grupo." },
-            { pt: "Em seguida, informe as datas de <b>chegada</b> e <b>saída</b> e salve.", en: "Then enter the <b>arrival</b> and <b>departure</b> dates and save.", es: "Luego informe las fechas de <b>chegada</b> y <b>saída</b> y guarde." },
-            { pt: "Para adicionar pessoas ao grupo, toque no ícone <b>Passageiros</b> e preencha os dados no próximo passo.", en: "To add people to the group, tap the <b>Passageiros</b> icon and fill in the details in the next step.", es: "Para agregar personas al grupo, toque el ícono <b>Passageiros</b> y complete los datos en el siguiente paso." }
+            { pt: "Feche o aviso <b>Cadastro realizado com sucesso</b>, se aparecer, e abra a aba <b>grupos</b>.", en: "Close the <b>Cadastro realizado com sucesso</b> notice, if it appears, and open the <b>grupos</b> tab.", es: "Cierre el aviso <b>Cadastro realizado com sucesso</b>, si aparece, y abra la pestaña <b>grupos</b>." },
+            { pt: "Toque no <b>+</b>. Confira o período <b>De</b> e <b>Até</b> e toque em <b>Salvar</b>.", en: "Tap <b>+</b>. Check the <b>De</b> and <b>Até</b> dates and tap <b>Salvar</b>.", es: "Toque el <b>+</b>. Confirme el período <b>De</b> y <b>Até</b> y toque <b>Salvar</b>." },
+            { pt: "Toque em <b>Logar no grupo</b>.", en: "Tap <b>Logar no grupo</b>.", es: "Toque <b>Logar no grupo</b>." }
           ],
-          tipLabel: { pt: "Depois de salvar", en: "After saving", es: "Después de guardar" },
+          tipLabel: { pt: "Aviso do grupo", en: "Group prompt", es: "Aviso del grupo" },
           tipHtml: {
-            pt: "Quando o app mostrar o localizador do grupo, toque em <b>Logar no grupo</b> para entrar nele.",
-            en: "When the app shows the group locator, tap <b>Logar no grupo</b> to enter it.",
-            es: "Cuando la aplicación muestre el localizador del grupo, toque <b>Logar no grupo</b> para entrar."
+            pt: "Depois de salvar, o app pergunta se quer criar um grupo. Dá para fechar e abrir a aba <b>grupos</b> na barra de baixo.",
+            en: "After saving, the app asks if you want to create a group. You can close it and open the <b>grupos</b> tab on the bottom bar.",
+            es: "Después de guardar, la aplicación pregunta si quiere crear un grupo. Puede cerrar y abrir la pestaña <b>grupos</b> en la barra de abajo."
           }
         },
         {
-          title: { pt: "Inclua quem viaja junto", en: "Add the people traveling with you", es: "Incluya a quienes viajan con usted" },
+          title: { pt: "Abra a taxa e toque em Pagar", en: "Open the fee and tap Pagar", es: "Abra la tasa y toque Pagar" },
           narrate: {
-            pt: "Passo 4. Inclua quem viaja junto. No grupo, abra a aba Passageiros. Preencha os campos obrigatórios, começando pelo nome: sexo, nascimento, documento e cidade. No Brasil use o CPF; de outro país, o passaporte. Toque em Salvar passageiro. Para incluir mais alguém, toque no mais e repita.",
-            en: "Step 4. Add the people traveling with you. In the group, open the Passageiros tab. Fill in the required fields, starting with the name: sex, date of birth, document, and city. In Brazil use the CPF; from another country, the passport. Tap Salvar passageiro. To add someone else, tap plus and repeat.",
-            es: "Paso 4. Incluya a quienes viajan con usted. En el grupo, abra la pestaña Passageiros. Complete los campos obligatorios, empezando por el nombre: sexo, nacimiento, documento y ciudad. En Brasil use el CPF; de otro país, el pasaporte. Toque Salvar passageiro. Para incluir a alguien más, toque el más y repita."
+            pt: "Toque em Taxas e serviços. Depois toque em Taxa de Conservação Ambiental de Bonito. Na matriz, confira os dias marcados e o Valor a pagar. Toque em Pagar.",
+            en: "Tap Taxas e serviços. Then tap Taxa de Conservação Ambiental de Bonito. On the grid, check the marked days and Valor a pagar. Tap Pagar.",
+            es: "Toque Taxas e serviços. Después toque Taxa de Conservação Ambiental de Bonito. En la matriz, confirme los días marcados y el Valor a pagar. Toque Pagar."
           },
           alt: {
-            pt: "Formulário Cadastro Passageiro. Uma indicação aponta para o campo Nome, o primeiro campo obrigatório.",
-            en: "Cadastro Passageiro form. A pointer highlights the Nome field, the first required field.",
-            es: "Formulario Cadastro Passageiro. Una indicación apunta al campo Nome, el primero obligatorio."
+            pt: "No grupo, o ponteiro abre Taxas e serviços, escolhe a taxa e toca em Pagar.",
+            en: "In the group, the pointer opens Taxas e serviços, chooses the fee, and taps Pagar.",
+            es: "En el grupo, el puntero abre Taxas e serviços, elige la tasa y toca Pagar."
           },
           howto: [
-            { pt: "No grupo, abra <b>Passageiros</b> e preencha os campos com <b>*</b>, começando pelo nome.", en: "In the group, open <b>Passageiros</b> and fill in the fields with <b>*</b>, starting with the name.", es: "En el grupo, abra <b>Passageiros</b> y complete los campos con <b>*</b>, empezando por el nombre." },
-            { pt: "Informe sexo, nascimento, documento (<b>CPF</b> ou passaporte) e cidade da viagem.", en: "Enter sex, date of birth, document (<b>CPF</b> or passport) and the city of the trip.", es: "Informe sexo, nacimiento, documento (<b>CPF</b> o pasaporte) y ciudad del viaje." },
-            { pt: "Toque em <b>Salvar passageiro</b>. Para incluir mais alguém, toque no <b>+</b> e repita.", en: "Tap <b>Salvar passageiro</b>. To add someone else, tap <b>+</b> and repeat.", es: "Toque <b>Salvar passageiro</b>. Para incluir a alguien más, toque <b>+</b> y repita." }
+            { pt: "Toque em <b>Taxas e serviços</b> e depois em <b>Taxa de Conservação Ambiental de Bonito</b>.", en: "Tap <b>Taxas e serviços</b> and then <b>Taxa de Conservação Ambiental de Bonito</b>.", es: "Toque <b>Taxas e serviços</b> y después <b>Taxa de Conservação Ambiental de Bonito</b>." },
+            { pt: "Na matriz, confira o <b>Valor a pagar</b>.", en: "On the grid, check <b>Valor a pagar</b>.", es: "En la matriz, confirme el <b>Valor a pagar</b>." },
+            { pt: "Toque em <b>Pagar</b>.", en: "Tap <b>Pagar</b>.", es: "Toque <b>Pagar</b>." }
           ],
-          tipLabel: { pt: "Documento", en: "Document", es: "Documento" },
+          tipLabel: { pt: "Sem o botão Pagar", en: "If Pagar is missing", es: "Si no aparece Pagar" },
           tipHtml: {
-            pt: "Só marque <b>Dependente (sem doc.)</b> se a pessoa realmente não tiver documento.",
-            en: "Only check <b>Dependente (sem doc.)</b> if the person truly has no document.",
-            es: "Marque <b>Dependente (sem doc.)</b> solo si la persona realmente no tiene documento."
+            pt: "Sem dia marcado, o botão <b>Pagar</b> não aparece. O botão fica no alto da tela Dados do grupo, à direita.",
+            en: "Without a marked day, the <b>Pagar</b> button does not appear. The button is at the top of the Dados do grupo screen, on the right.",
+            es: "Sin un día marcado, el botón <b>Pagar</b> no aparece. El botón está arriba de la pantalla Dados do grupo, a la derecha."
           }
         },
         {
-          title: { pt: "Pague a taxa ambiental", en: "Pay the environmental fee", es: "Pague la tasa ambiental" },
+          title: { pt: "Pague com cartão e confira Pago", en: "Pay by card and check Pago", es: "Pague con tarjeta y confirme Pago" },
           narrate: {
-            pt: "Passo 5. Pague a taxa ambiental. Abra o grupo e toque em Taxas e serviços. Marque os dias em que cada pessoa permanece na cidade. Toque em Pagar e escolha Pix, cartão ou link de pagamento. Confira se o status ficou Pago. Se aparecer um link de pagamento, ele vale por 24 horas. Só saia da tela depois de ver o status Pago.",
-            en: "Step 5. Pay the environmental fee. Open the group and tap Taxas e serviços. Mark the days each person stays in the city. Tap Pagar and choose Pix, card, or payment link. Check that the status is Pago. If a payment link appears, it is valid for 24 hours. Leave the screen only after you see the status Pago.",
-            es: "Paso 5. Pague la tasa ambiental. Abra el grupo y toque Taxas e serviços. Marque los días en que cada persona permanece en la ciudad. Toque Pagar y elija Pix, tarjeta o enlace de pago. Compruebe que el estado quedó Pago. Si aparece un enlace de pago, vale por 24 horas. Salga de la pantalla solo después de ver el estado Pago."
+            pt: "Em Dados pagamento, confira o nome e toque em Prosseguir. Em Modo, toque na aba Cartão. Confira os dados e toque em Prosseguir. No passo Finalizado, o status deve ser Pago. Toque em Imprimir Comprovante se quiser o recibo, ou em Fechar.",
+            en: "In Dados pagamento, check the name and tap Prosseguir. In Modo, tap the Cartão tab. Check the details and tap Prosseguir. In the Finalizado step, the status should be Pago. Tap Imprimir Comprovante if you want the receipt, or Fechar.",
+            es: "En Dados pagamento, confirme el nombre y toque Prosseguir. En Modo, toque la pestaña Cartão. Confirme los datos y toque Prosseguir. En el paso Finalizado, el estado debe ser Pago. Toque Imprimir Comprovante si quiere el recibo, o Fechar."
           },
           alt: {
-            pt: "Aba Passageiros do grupo, com pessoas cadastradas. Depois de salvar o grupo, siga para Taxas e serviços e o pagamento.",
-            en: "Group Passageiros tab, with registered people. After saving the group, go to Taxas e serviços and payment.",
-            es: "Pestaña Passageiros del grupo, con personas registradas. Después de guardar el grupo, siga a Taxas e serviços y el pago."
+            pt: "Pagamento no cartão e a tela Finalizado com o status Pago e Imprimir Comprovante.",
+            en: "Card payment and the Finalizado screen with the Pago status and Imprimir Comprovante.",
+            es: "Pago con tarjeta y la pantalla Finalizado con el estado Pago e Imprimir Comprovante."
           },
           howto: [
-            { pt: "Abra o grupo e toque em <b>Taxas e serviços</b>.", en: "Open the group and tap <b>Taxas e serviços</b>.", es: "Abra el grupo y toque <b>Taxas e serviços</b>." },
-            { pt: "Marque os dias em que cada pessoa permanece na cidade.", en: "Mark the days each person stays in the city.", es: "Marque los días en que cada persona permanece en la ciudad." },
-            { pt: "Toque em <b>Pagar</b> e escolha Pix, cartão ou link de pagamento.", en: "Tap <b>Pagar</b> and choose Pix, card, or payment link.", es: "Toque <b>Pagar</b> y elija Pix, tarjeta o enlace de pago." },
-            { pt: "Confira se o status ficou <b>Pago</b>.", en: "Check that the status is <b>Pago</b>.", es: "Compruebe que el estado quedó <b>Pago</b>." }
+            { pt: "Em <b>Dados pagamento</b>, confira o nome e toque em <b>Prosseguir</b>.", en: "In <b>Dados pagamento</b>, check the name and tap <b>Prosseguir</b>.", es: "En <b>Dados pagamento</b>, confirme el nombre y toque <b>Prosseguir</b>." },
+            { pt: "Em <b>Modo</b>, toque na aba <b>Cartão</b> e depois em <b>Prosseguir</b>.", en: "In <b>Modo</b>, tap the <b>Cartão</b> tab and then <b>Prosseguir</b>.", es: "En <b>Modo</b>, toque la pestaña <b>Cartão</b> y después <b>Prosseguir</b>." },
+            { pt: "No passo <b>Finalizado</b>, confira o status <b>Pago</b>. Toque em <b>Imprimir Comprovante</b> ou em <b>Fechar</b>.", en: "In the <b>Finalizado</b> step, check the status <b>Pago</b>. Tap <b>Imprimir Comprovante</b> or <b>Fechar</b>.", es: "En el paso <b>Finalizado</b>, confirme el estado <b>Pago</b>. Toque <b>Imprimir Comprovante</b> o <b>Fechar</b>." }
           ],
-          tipLabel: { pt: "Se o link de pagamento aparecer", en: "If the payment link appears", es: "Si aparece el enlace de pago" },
+          tipLabel: { pt: "Pix", en: "Pix", es: "Pix" },
           tipHtml: {
-            pt: "Ele vale por 24 horas. Depois de pagar, não feche a tela antes de ver o status Pago.",
-            en: "It is valid for 24 hours. After paying, do not close the screen before you see the status Pago.",
-            es: "Vale por 24 horas. Después de pagar, no cierre la pantalla antes de ver el estado Pago."
+            pt: "No mesmo passo <b>Modo</b>, a aba <b>Pix</b> gera o QR para pagar no app do banco.",
+            en: "In the same <b>Modo</b> step, the <b>Pix</b> tab creates the QR to pay in the bank app.",
+            es: "En el mismo paso <b>Modo</b>, la pestaña <b>Pix</b> genera el QR para pagar en la app del banco."
+          }
+        }
+      ]
+    },
+    cadastro: {
+      title: { pt: "Como fazer seu cadastro", en: "How to create your account", es: "Cómo crear su cuenta" },
+      description: {
+        pt: "Guia passo a passo para criar sua conta no Turista por Natureza.",
+        en: "Step-by-step guide to create your account in Turista por Natureza.",
+        es: "Guía paso a paso para crear su cuenta en Turista por Natureza."
+      },
+      lede: {
+        pt: "Turista por Natureza · crie sua conta para usar o aplicativo",
+        en: "Turista por Natureza · create your account to use the app",
+        es: "Turista por Natureza · cree su cuenta para usar la aplicación"
+      },
+      doneNarrate: {
+        pt: "Guia concluído. Depois de salvar, use o documento e a senha ou o celular para entrar. Em seguida, dá para criar o grupo e pagar a taxa ambiental.",
+        en: "Guide complete. After saving, use the document and the password or mobile number to sign in. Then you can create the group and pay the environmental fee.",
+        es: "Guía completada. Después de guardar, use el documento y la contraseña o el celular para entrar. Luego puede crear el grupo y pagar la tasa ambiental."
+      },
+      doneLead: {
+        pt: "Com o cadastro salvo, entre com o documento e a senha ou o celular. Depois crie o grupo e pague a taxa ambiental.",
+        en: "With the registration saved, sign in with the document and the password or mobile number. Then create the group and pay the environmental fee.",
+        es: "Con el cadastro guardado, entre con el documento y la contraseña o el celular. Luego cree el grupo y pague la tasa ambiental."
+      },
+      doneTipLabel: { pt: "Documento já cadastrado", en: "Document already registered", es: "Documento ya registrado" },
+      doneTipHtml: {
+        pt: "Se o documento já existir, o app pergunta se quer <b>importar os dados</b>.",
+        en: "If the document already exists, the app asks whether you want to <b>import the data</b>.",
+        es: "Si el documento ya existe, la aplicación pregunta si quiere <b>importar los datos</b>."
+      },
+      steps: [
+        {
+          title: { pt: "Toque em Novo Cadastro", en: "Tap Novo Cadastro", es: "Toque Novo Cadastro" },
+          narrate: {
+            pt: "Na tela de login, toque em Novo Cadastro.",
+            en: "On the login screen, tap Novo Cadastro.",
+            es: "En la pantalla de acceso, toque Novo Cadastro."
+          },
+          alt: {
+            pt: "Tela de login do Turista por Natureza, com o ponteiro no botão Novo Cadastro.",
+            en: "Turista por Natureza login screen, with the pointer on the Novo Cadastro button.",
+            es: "Pantalla de acceso de Turista por Natureza, con el puntero en el botón Novo Cadastro."
+          },
+          howto: [
+            { pt: "Abra o aplicativo ou o site <b>Turista por Natureza</b>.", en: "Open the <b>Turista por Natureza</b> app or website.", es: "Abra la aplicación o el sitio <b>Turista por Natureza</b>." },
+            { pt: "Na tela de login, toque em <b>Novo Cadastro</b>.", en: "On the login screen, tap <b>Novo Cadastro</b>.", es: "En la pantalla de acceso, toque <b>Novo Cadastro</b>." }
+          ],
+          tipLabel: { pt: "Já tem cadastro?", en: "Already registered?", es: "¿Ya tiene cadastro?" },
+          tipHtml: {
+            pt: "Se vier de Pagar minha Tx. Ambiental, toque em <b>Sim</b> para voltar ao login ou em <b>Não</b> para o mesmo formulário.",
+            en: "If you came from Pagar minha Tx. Ambiental, tap <b>Sim</b> to return to login or <b>Não</b> for the same form.",
+            es: "Si viene de Pagar minha Tx. Ambiental, toque <b>Sim</b> para volver al acceso o <b>Não</b> para el mismo formulario."
+          }
+        },
+        {
+          title: { pt: "Preencha os campos obrigatórios", en: "Fill in the required fields", es: "Complete los campos obligatorios" },
+          narrate: {
+            pt: "Preencha os campos obrigatórios, os que têm asterisco. Informe o nome. Escolha o sexo. Informe a data de nascimento. No Brasil, o tipo de documento é o CPF. Digite o número do documento. Confira o país. Escolha o estado. Depois escolha a cidade. Siga a ordem da tela, de cima para baixo.",
+            en: "Fill in the required fields, the ones with an asterisk. Enter the name. Choose the sex. Enter the date of birth. In Brazil, the document type is CPF. Type the document number. Check the country. Choose the state. Then choose the city. Follow the order on the screen, from top to bottom.",
+            es: "Complete los campos obligatorios, los que tienen asterisco. Informe el nombre. Elija el sexo. Informe la fecha de nacimiento. En Brasil, el tipo de documento es el CPF. Escriba el número del documento. Confirme el país. Elija el estado. Después elija la ciudad. Siga el orden de la pantalla, de arriba hacia abajo."
+          },
+          alt: {
+            pt: "Formulário de cadastro, com nome, sexo, nascimento, CPF, país, UF e cidade. O ponteiro indica os campos obrigatórios.",
+            en: "Registration form, with name, sex, date of birth, CPF, country, state, and city. The pointer highlights the required fields.",
+            es: "Formulario de cadastro, con nombre, sexo, nacimiento, CPF, país, UF y ciudad. El puntero indica los campos obligatorios."
+          },
+          howto: [
+            { pt: "Preencha <b>Nome</b>, <b>Sexo</b> e <b>Nascimento</b>.", en: "Fill in <b>Nome</b>, <b>Sexo</b>, and <b>Nascimento</b>.", es: "Complete <b>Nome</b>, <b>Sexo</b> y <b>Nascimento</b>." },
+            { pt: "Informe o tipo e o número do <b>documento</b>. No Brasil, use o CPF.", en: "Enter the <b>document</b> type and number. In Brazil, use the CPF.", es: "Informe el tipo y el número del <b>documento</b>. En Brasil, use el CPF." },
+            { pt: "Confira <b>País</b>, <b>UF</b> e <b>Cidade</b>.", en: "Check <b>País</b>, <b>UF</b>, and <b>Cidade</b>.", es: "Confirme <b>País</b>, <b>UF</b> y <b>Cidade</b>." }
+          ],
+          tipLabel: { pt: "Nome", en: "Name", es: "Nombre" },
+          tipHtml: {
+            pt: "Use nome e sobrenome, se o app pedir.",
+            en: "Use first and last name if the app asks for them.",
+            es: "Use nombre y apellido, si la aplicación lo pide."
+          }
+        },
+        {
+          title: { pt: "Dados opcionais e salvar", en: "Optional details and save", es: "Datos opcionales y guardar" },
+          narrate: {
+            pt: "Abaixo ficam os dados opcionais. Role até o fim e toque em Salvar.",
+            en: "Optional details are below. Scroll to the end and tap Salvar.",
+            es: "Abajo están los datos opcionales. Baje hasta el final y toque Salvar."
+          },
+          alt: {
+            pt: "Final do cadastro, com Dados Opcionais e o ponteiro no botão SALVAR.",
+            en: "End of the registration, with Dados Opcionais and the pointer on the SALVAR button.",
+            es: "Final del cadastro, con Dados Opcionais y el puntero en el botón SALVAR."
+          },
+          howto: [
+            { pt: "Se quiser, preencha <b>celular</b>, <b>e-mail</b> e <b>senha</b> em Dados Opcionais.", en: "If you want, fill in <b>celular</b>, <b>e-mail</b>, and <b>senha</b> under Dados Opcionais.", es: "Si quiere, complete <b>celular</b>, <b>e-mail</b> y <b>senha</b> en Dados Opcionais." },
+            { pt: "Se o cadastro for seu, desmarque <b>permitir alteração por terceiros</b>.", en: "If this registration is yours, uncheck <b>permitir alteração por terceiros</b>.", es: "Si el cadastro es suyo, desmarque <b>permitir alteração por terceiros</b>." },
+            { pt: "Role até o fim e toque em <b>SALVAR</b>.", en: "Scroll to the end and tap <b>SALVAR</b>.", es: "Baje hasta el final y toque <b>SALVAR</b>." }
+          ],
+          tipLabel: { pt: "Senha", en: "Password", es: "Contraseña" },
+          tipHtml: {
+            pt: "Se a senha ficar em branco, o celular pode valer como senha.",
+            en: "If you leave the password blank, the mobile number can work as the password.",
+            es: "Si la contraseña queda en blanco, el celular puede valer como contraseña."
           }
         }
       ]

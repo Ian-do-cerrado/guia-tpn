@@ -523,7 +523,7 @@
       };
       video.onerror = () => {
         if (gen !== stepGen) return;
-        fallbackToGif(slide, video);
+        fallbackToStill(slide, video);
       };
       if (video.readyState >= 1) applySync();
       else video.addEventListener("loadedmetadata", applySync, { once: true });
@@ -534,7 +534,7 @@
       clearTimeout(stallTimer);
       stallTimer = setTimeout(() => {
         if (gen !== stepGen || slides[current] !== slide) return;
-        if (video.readyState < 2) fallbackToGif(slide, video);
+        if (video.readyState < 2) fallbackToStill(slide, video);
         else setChrome(true);
       }, 10000);
       return;
@@ -559,28 +559,16 @@
     else img.addEventListener("load", startTimer, { once: true });
   }
 
-  function fallbackToGif(slide, video) {
-    const gif = video && video.dataset.gif;
+  function fallbackToStill(slide, video) {
     const still = video && video.dataset.still;
     setWaiting(slide, false);
-    if (!gif) {
+    if (!still) {
       markVideoDone();
       return;
     }
-    const img = document.createElement("img");
-    img.width = video.width || 720;
-    img.height = video.height || 1558;
-    img.alt = video.getAttribute("aria-label") || "";
-    img.dataset.gif = gif;
-    img.dataset.still = still || "";
-    img.dataset.durationMs = video.dataset.durationMs || "12000";
-    img.addEventListener("error", () => {
-      if (still) img.src = still;
-      markVideoDone();
-    });
-    img.src = gif;
-    video.replaceWith(img);
-    armMediaEnd(slide);
+    video.poster = still;
+    try { video.pause(); } catch (err) {}
+    markVideoDone();
   }
 
   function replayMedia(slide) {
