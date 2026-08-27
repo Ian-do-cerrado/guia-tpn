@@ -107,12 +107,12 @@
         key: { pt: "TAXA DE CONSERVAÇÃO AMBIENTAL", en: "ENVIRONMENTAL CONSERVATION FEE", es: "TASA DE CONSERVACIÓN AMBIENTAL" },
         title: { pt: "Como pagar a Taxa de Conservação Ambiental", en: "How to pay the environmental fee", es: "Cómo pagar la tasa ambiental" },
         desc: {
-          pt: "Cadastre-se, crie o grupo e pague a Taxa de Conservação Ambiental.",
-          en: "Register, create the group, and pay the environmental fee.",
-          es: "Regístrese, cree el grupo y pague la tasa ambiental."
+          pt: "Crie o grupo e pague a Taxa de Conservação Ambiental.",
+          en: "Create the group and pay the environmental fee.",
+          es: "Cree el grupo y pague la tasa ambiental."
         },
-        meta: { pt: "6 passos · com narração", en: "6 steps · with narration", es: "6 pasos · con narración" },
-        search: "pagar pagamento taxa ambiental cadastro grupo cartao pix comprovante pay fee environmental card register"
+        meta: { pt: "3 passos · com narração", en: "3 steps · with narration", es: "3 pasos · con narración" },
+        search: "pagar pagamento taxa ambiental grupo cartao pix comprovante pay fee environmental card"
       },
       {
         href: "guia-pedido-reembolso.html",
@@ -192,14 +192,14 @@
     taxa: {
       title: { pt: "Como pagar a Taxa de Conservação Ambiental", en: "How to pay the environmental fee", es: "Cómo pagar la tasa ambiental" },
       description: {
-        pt: "Guia passo a passo para se cadastrar, criar o grupo e pagar a Taxa de Conservação Ambiental de Bonito.",
-        en: "Step-by-step guide to register, create the group, and pay the Taxa de Conservação Ambiental de Bonito.",
-        es: "Guía paso a paso para registrarse, crear el grupo y pagar la Taxa de Conservação Ambiental de Bonito."
+        pt: "Guia passo a passo para criar o grupo e pagar a Taxa de Conservação Ambiental de Bonito.",
+        en: "Step-by-step guide to create the group and pay the Taxa de Conservação Ambiental de Bonito.",
+        es: "Guía paso a paso para crear el grupo y pagar la Taxa de Conservação Ambiental de Bonito."
       },
       lede: {
-        pt: "Turista por Natureza · cadastre-se, crie o grupo e pague a taxa",
-        en: "Turista por Natureza · register, create the group, and pay the fee",
-        es: "Turista por Natureza · regístrese, cree el grupo y pague la tasa"
+        pt: "Turista por Natureza · crie o grupo e pague a taxa",
+        en: "Turista por Natureza · create the group and pay the fee",
+        es: "Turista por Natureza · cree el grupo y pague la tasa"
       },
       statusDone: {
         pt: "Tudo certo · confira o status Pago",
@@ -207,14 +207,14 @@
         es: "Listo · compruebe el estado Pago"
       },
       doneNarrate: {
-        pt: "Guia concluído. Você se cadastrou, criou o grupo e pagou a taxa. No aplicativo, confira se o status ficou Pago.",
-        en: "Guide complete. You registered, created the group, and paid the fee. In the app, check that the status is Pago.",
-        es: "Guía completada. Se registró, creó el grupo y pagó la tasa. En la aplicación, compruebe que el estado quedó Pago."
+        pt: "Guia concluído. Você criou o grupo e pagou a taxa. No aplicativo, confira se o status ficou Pago.",
+        en: "Guide complete. You created the group and paid the fee. In the app, check that the status is Pago.",
+        es: "Guía completada. Creó el grupo y pagó la tasa. En la aplicación, compruebe que el estado quedó Pago."
       },
       doneLead: {
-        pt: "Cadastre-se, crie o grupo, pague a taxa e só saia da tela depois de ver o status Pago.",
-        en: "Register, create the group, pay the fee, and leave the screen only after you see the status Pago.",
-        es: "Regístrese, cree el grupo, pague la tasa y salga de la pantalla solo después de ver el estado Pago."
+        pt: "Crie o grupo, pague a taxa e só saia da tela depois de ver o status Pago.",
+        en: "Create the group, pay the fee, and leave the screen only after you see the status Pago.",
+        es: "Cree el grupo, pague la tasa y salga de la pantalla solo después de ver el estado Pago."
       },
       doneTipLabel: { pt: "Pix", en: "Pix", es: "Pix" },
       doneTipHtml: {
@@ -223,78 +223,6 @@
         es: "En el paso <b>Modo</b>, la pestaña Pix genera el QR para pagar en la app del banco. Sin un día marcado, el botón <b>Pagar</b> no aparece."
       },
       steps: [
-        {
-          title: { pt: "Toque em Novo Cadastro", en: "Tap Novo Cadastro", es: "Toque Novo Cadastro" },
-          narrate: {
-            pt: "Na tela de login, toque em Novo Cadastro.",
-            en: "On the login screen, tap Novo Cadastro.",
-            es: "En la pantalla de acceso, toque Novo Cadastro."
-          },
-          alt: {
-            pt: "Tela de login do Turista por Natureza, com o ponteiro no botão Novo Cadastro.",
-            en: "Turista por Natureza login screen, with the pointer on the Novo Cadastro button.",
-            es: "Pantalla de acceso de Turista por Natureza, con el puntero en el botón Novo Cadastro."
-          },
-          howto: [
-            { pt: "Abra o aplicativo ou o site <b>Turista por Natureza</b>.", en: "Open the <b>Turista por Natureza</b> app or website.", es: "Abra la aplicación o el sitio <b>Turista por Natureza</b>." },
-            { pt: "Na tela de login, toque em <b>Novo Cadastro</b>.", en: "On the login screen, tap <b>Novo Cadastro</b>.", es: "En la pantalla de acceso, toque <b>Novo Cadastro</b>." }
-          ],
-          tipLabel: { pt: "Este caminho", en: "This path", es: "Este camino" },
-          tipHtml: {
-            pt: "Este guia usa o caminho clássico. Não use o atalho <b>Pagar minha Tx. Ambiental</b>.",
-            en: "This guide uses the classic path. Do not use the <b>Pagar minha Tx. Ambiental</b> shortcut.",
-            es: "Esta guía usa el camino clásico. No use el atajo <b>Pagar minha Tx. Ambiental</b>."
-          }
-        },
-        {
-          title: { pt: "Preencha os campos obrigatórios", en: "Fill in the required fields", es: "Complete los campos obligatorios" },
-          narrate: {
-            pt: "Preencha os campos obrigatórios, os que têm asterisco. Informe o nome. Escolha o sexo. Informe a data de nascimento. No Brasil, o tipo de documento é o CPF. Digite o número do documento. Confira o país. Escolha o estado. Depois escolha a cidade. Siga a ordem da tela, de cima para baixo. Confira o estado e a cidade da viagem antes de seguir.",
-            en: "Fill in the required fields, the ones with an asterisk. Enter the name. Choose the sex. Enter the date of birth. In Brazil, the document type is CPF. Type the document number. Check the country. Choose the state. Then choose the city. Follow the order on the screen, from top to bottom. Check the trip state and city before you continue.",
-            es: "Complete los campos obligatorios, los que tienen asterisco. Informe el nombre. Elija el sexo. Informe la fecha de nacimiento. En Brasil, el tipo de documento es el CPF. Escriba el número del documento. Confirme el país. Elija el estado. Después elija la ciudad. Siga el orden de la pantalla, de arriba hacia abajo. Confirme el estado y la ciudad del viaje antes de seguir."
-          },
-          alt: {
-            pt: "Formulário de cadastro, com nome, sexo, nascimento, CPF, país, UF e cidade.",
-            en: "Registration form, with name, sex, date of birth, CPF, country, state, and city.",
-            es: "Formulario de cadastro, con nombre, sexo, nacimiento, CPF, país, UF y ciudad."
-          },
-          howto: [
-            { pt: "Preencha <b>Nome</b>, <b>Sexo</b> e <b>Nascimento</b>.", en: "Fill in <b>Nome</b>, <b>Sexo</b>, and <b>Nascimento</b>.", es: "Complete <b>Nome</b>, <b>Sexo</b> y <b>Nascimento</b>." },
-            { pt: "Informe o tipo e o número do <b>documento</b>. No Brasil, use o CPF.", en: "Enter the <b>document</b> type and number. In Brazil, use the CPF.", es: "Informe el tipo y el número del <b>documento</b>. En Brasil, use el CPF." },
-            { pt: "Confira <b>País</b>, <b>UF</b> e <b>Cidade</b>.", en: "Check <b>País</b>, <b>UF</b>, and <b>Cidade</b>.", es: "Confirme <b>País</b>, <b>UF</b> y <b>Cidade</b>." },
-            { pt: "Se você for o dono do cadastro, desmarque <b>Permitir alteração do cadastro por terceiros</b>.", en: "If you own this registration, uncheck <b>Permitir alteração do cadastro por terceiros</b>.", es: "Si usted es el dueño del cadastro, desmarque <b>Permitir alteração do cadastro por terceiros</b>." }
-          ],
-          tipLabel: { pt: "Nome", en: "Name", es: "Nombre" },
-          tipHtml: {
-            pt: "Use nome e sobrenome, se o app pedir.",
-            en: "Use first and last name if the app asks for them.",
-            es: "Use nombre y apellido, si la aplicación lo pide."
-          }
-        },
-        {
-          title: { pt: "Celular, e-mail e Salvar", en: "Mobile, email, and Save", es: "Celular, correo y Salvar" },
-          narrate: {
-            pt: "Role até Dados Opcionais. Toque em Senha e deixe em branco para usar o celular como senha. Preencha o celular e o e-mail. Sem eles, o botão de criar grupo fica bloqueado. Toque em Salvar. Se o cadastro for aceito, aparece o aviso de sucesso.",
-            en: "Scroll to Dados Opcionais. Tap Senha and leave it blank to use the mobile number as the password. Fill in the mobile number and email. Without them, the create-group button stays locked. Tap Salvar. If the registration is accepted, a success notice appears.",
-            es: "Baje hasta Dados Opcionais. Toque Senha y déjela en blanco para usar el celular como contraseña. Complete el celular y el correo. Sin ellos, el botón de crear grupo queda bloqueado. Toque Salvar. Si el cadastro es aceptado, aparece el aviso de éxito."
-          },
-          alt: {
-            pt: "Dados Opcionais, com senha em branco, celular, e-mail e o ponteiro em SALVAR.",
-            en: "Dados Opcionais, with a blank password, mobile, email, and the pointer on SALVAR.",
-            es: "Dados Opcionais, con contraseña en blanco, celular, correo y el puntero en SALVAR."
-          },
-          howto: [
-            { pt: "Role até <b>Dados Opcionais</b>. Toque em <b>Senha</b> e deixe em branco.", en: "Scroll to <b>Dados Opcionais</b>. Tap <b>Senha</b> and leave it blank.", es: "Baje hasta <b>Dados Opcionais</b>. Toque <b>Senha</b> y déjela en blanco." },
-            { pt: "Preencha <b>Celular</b> e <b>Email</b>.", en: "Fill in <b>Celular</b> and <b>Email</b>.", es: "Complete <b>Celular</b> y <b>Email</b>." },
-            { pt: "Toque em <b>SALVAR</b>.", en: "Tap <b>SALVAR</b>.", es: "Toque <b>SALVAR</b>." }
-          ],
-          tipLabel: { pt: "Senha em branco", en: "Blank password", es: "Contraseña en blanco" },
-          tipHtml: {
-            pt: "O aviso da tela é: <b>Deixe em branco para usar o celular como senha</b>. Sem celular e e-mail, o app avisa e o mais de criar grupo fica bloqueado.",
-            en: "The on-screen note is: <b>Deixe em branco para usar o celular como senha</b>. Without mobile and email, the app warns you and the create-group plus stays locked.",
-            es: "El aviso de la pantalla es: <b>Deixe em branco para usar o celular como senha</b>. Sin celular y correo, la aplicación avisa y el más de crear grupo queda bloqueado."
-          }
-        },
         {
           title: { pt: "Crie o grupo e entre", en: "Create the group and enter", es: "Cree el grupo y entre" },
           narrate: {
@@ -312,11 +240,11 @@
             { pt: "Toque no <b>+</b>. Confira o período <b>De</b> e <b>Até</b> e toque em <b>Salvar</b>.", en: "Tap <b>+</b>. Check the <b>De</b> and <b>Até</b> dates and tap <b>Salvar</b>.", es: "Toque el <b>+</b>. Confirme el período <b>De</b> y <b>Até</b> y toque <b>Salvar</b>." },
             { pt: "Toque em <b>Logar no grupo</b>.", en: "Tap <b>Logar no grupo</b>.", es: "Toque <b>Logar no grupo</b>." }
           ],
-          tipLabel: { pt: "Aviso do grupo", en: "Group prompt", es: "Aviso del grupo" },
+          tipLabel: { pt: "Sem cadastro", en: "No account yet", es: "Sin cadastro" },
           tipHtml: {
-            pt: "Depois de salvar, o app pergunta se quer criar um grupo. Dá para fechar e abrir a aba <b>grupos</b> na barra de baixo.",
-            en: "After saving, the app asks if you want to create a group. You can close it and open the <b>grupos</b> tab on the bottom bar.",
-            es: "Después de guardar, la aplicación pregunta si quiere crear un grupo. Puede cerrar y abrir la pestaña <b>grupos</b> en la barra de abajo."
+            pt: "O passo a passo da conta está no guia <b>Como fazer seu cadastro</b>. Este guia usa o caminho clássico — não o atalho <b>Pagar minha Tx. Ambiental</b>.",
+            en: "The account steps are in the <b>How to create your account</b> guide. This guide uses the classic path — not the <b>Pagar minha Tx. Ambiental</b> shortcut.",
+            es: "El paso a paso de la cuenta está en la guía <b>Cómo crear su cuenta</b>. Esta guía usa el camino clásico — no el atajo <b>Pagar minha Tx. Ambiental</b>."
           }
         },
         {
