@@ -23,7 +23,9 @@
       "@media (prefers-reduced-motion:reduce){.media.is-waiting::after{animation:none;border-top-color:rgba(255,255,255,.55)}}" +
       ".pause-mark{position:absolute;left:50%;top:42%;z-index:12;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:rgba(11,31,24,.72);color:#fff;display:none;place-items:center;pointer-events:none;box-shadow:0 4px 18px rgba(0,0,0,.35)}" +
       ".pause-mark svg{width:28px;height:28px;display:block}" +
-      ".app.is-paused .pause-mark{display:grid}";
+      ".app.is-paused .pause-mark{display:grid}" +
+      "#narrate[aria-pressed=\"false\"]{position:relative}" +
+      "#narrate[aria-pressed=\"false\"]::after{content:\"\";position:absolute;left:11px;right:11px;top:50%;height:2px;background:currentColor;transform:rotate(-32deg);border-radius:1px;pointer-events:none}";
     document.head.appendChild(s);
   }
 
@@ -52,7 +54,10 @@
   const BGM_VOL = 0.20;
   const BGM_DUCK = 0.12;
   let voiceOn = localStorage.getItem("guia-narrate") !== "off";
-  if (bgm) bgm.volume = BGM_VOL;
+  if (bgm) {
+    bgm.volume = voiceOn ? BGM_VOL : 0;
+    bgm.muted = !voiceOn;
+  }
 
   let userPaused = false;
   let stepGen = 0;
@@ -123,15 +128,33 @@
   }
 
   function startBgm() {
-    if (!bgm || !bgm.paused) return;
+    if (!bgm || !voiceOn || userPaused) return;
+    bgm.muted = false;
+    duckBgm();
+    if (!bgm.paused) return;
     const play = bgm.play();
     if (play && typeof play.catch === "function") play.catch(() => {});
   }
 
   function duckBgm() {
     if (!bgm) return;
+    if (!voiceOn) {
+      bgm.muted = true;
+      bgm.volume = 0;
+      return;
+    }
+    bgm.muted = false;
     const talking = clips.some((clip) => !clip.paused && !clip.ended);
     bgm.volume = talking ? BGM_DUCK : BGM_VOL;
+  }
+
+  function muteAll() {
+    stopNarration();
+    if (bgm) {
+      bgm.muted = true;
+      bgm.volume = 0;
+      try { bgm.pause(); } catch (err) {}
+    }
   }
 
   clips.forEach((clip) => {
@@ -172,11 +195,12 @@
 
   function speakCurrent() {
     stopNarration();
-    startBgm();
     if (!voiceOn) {
+      muteAll();
       markAudioDone();
       return;
     }
+    startBgm();
     const clip = clipFor(current);
     if (!clip) {
       markAudioDone();
@@ -458,7 +482,7 @@
         const clip = clipFor(current);
         const t = clip ? clip.currentTime : 0;
         captionClock = performance.now() - t * 1000;
-        clips.forEach((item) => item.pause());
+        muteAll();
         markAudioDone();
       }
     });
