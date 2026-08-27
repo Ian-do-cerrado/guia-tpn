@@ -77,6 +77,7 @@
             icon: card.icon,
             intro: card.intro[lang.value],
             key: card.key[lang.value],
+            note: card.note ? card.note[lang.value] : "",
             title: card.title[lang.value]
           };
         });

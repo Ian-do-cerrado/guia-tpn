@@ -147,7 +147,8 @@
         icon: "shield",
         intro: { pt: "Como pedir", en: "How to request a", es: "Cómo pedir la" },
         key: { pt: "ISENÇÃO DA TAXA", en: "FEE EXEMPTION", es: "EXENCIÓN DE LA TASA" },
-        title: { pt: "Como pedir isenção da taxa", en: "How to request a fee exemption", es: "Cómo pedir la exención de la tasa" },
+        note: { pt: "(moradores de Bonito)", en: "(Bonito residents)", es: "(residentes de Bonito)" },
+        title: { pt: "Como pedir isenção da taxa (moradores de Bonito)", en: "How to request a fee exemption (Bonito residents)", es: "Cómo pedir la exención de la tasa (residentes de Bonito)" },
         desc: {
           pt: "Residente de Bonito solicita isenção com documento e comprovante de residência.",
           en: "A Bonito resident requests an exemption with ID and proof of residence.",
@@ -699,7 +700,7 @@
       ]
     },
     isencao: {
-      title: { pt: "Como pedir isenção da taxa", en: "How to request a fee exemption", es: "Cómo pedir la exención de la tasa" },
+      title: { pt: "Como pedir isenção da taxa (moradores de Bonito)", en: "How to request a fee exemption (Bonito residents)", es: "Cómo pedir la exención de la tasa (residentes de Bonito)" },
       description: {
         pt: "Guia para o morador de Bonito solicitar isenção da taxa ambiental no Turista por Natureza.",
         en: "Guide for a Bonito resident to request an environmental-fee exemption in Turista por Natureza.",
