@@ -5,441 +5,270 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
-  <meta name="theme-color" content="#1c4c23">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,75..125,100..900;1,75..125,100..900&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#1d4d24">
   <meta name="color-scheme" content="light">
   <meta name="description" content="Guias do Turista por Natureza: cadastro, taxa ambiental, reembolso, titularidade, isenção, importar integrantes e comprovante.">
   <title>Turista por Natureza · Guias</title>
   <style>
     :root {
-      --green: #1c4c23;
-      --green-dark: #1c4c23;
-      --green-soft: #e7efe8;
-      --text: #1a2c26;
-      --muted: #4a5f57;
-      --line: #d5e3dc;
-      --bg: #f3f7f5;
+      --green: #1d4d24;
+      --mint: #f3f7f5;
       --white: #fff;
-      --focus: #1c4c23;
-      --max: 430px;
-      --side: max(20px, env(safe-area-inset-left));
-      --side-r: max(20px, env(safe-area-inset-right));
+      --text: #000;
+      --side: max(28px, env(safe-area-inset-left));
+      --side-r: max(28px, env(safe-area-inset-right));
     }
     * { box-sizing: border-box; }
     html { -webkit-text-size-adjust: 100%; }
     body {
       margin: 0;
       min-height: 100dvh;
-      background: var(--bg);
+      background: var(--green);
       color: var(--text);
       font-family: Archivo, system-ui, sans-serif;
-      font-size: 16px;
-      line-height: 1.45;
     }
-    a:focus-visible,
-    input:focus-visible {
-      outline: 3px solid var(--focus);
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid #fff;
       outline-offset: 3px;
     }
-
-    .app {
-      max-width: var(--max);
-      margin: 0 auto;
+    .shell {
       min-height: 100dvh;
+      max-width: 430px;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
-      padding: max(20px, env(safe-area-inset-top)) var(--side-r) max(28px, env(safe-area-inset-bottom)) var(--side);
+      background: var(--green);
     }
-
-    .hero {
-      padding: 28px 4px 8px;
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 118px;
+      padding: max(12px, env(safe-area-inset-top)) var(--side-r) 18px var(--side);
     }
     .brand {
       display: block;
-      width: min(240px, 82%);
-      height: auto;
-      margin: 0 0 16px;
+      height: 72px;
+      width: 155px;
+      object-fit: contain;
+      object-position: left center;
     }
-    .langs {
+    .lang {
+      position: relative;
+      flex: 0 0 auto;
+    }
+    .lang-btn {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 16px 20px;
-      margin: 0 0 20px;
-    }
-    .langs button {
-      display: inline-flex;
       align-items: center;
       gap: 8px;
       margin: 0;
-      padding: 8px 0;
-      border: 0;
+      padding: 8px 10px;
+      border: 1px solid rgba(255,255,255,.6);
+      border-radius: 10px;
       background: transparent;
-      color: #000;
-      font: inherit;
-      font-size: 0.95rem;
-      font-weight: 500;
-      line-height: 1;
+      color: #fff;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
     }
-    .langs button[aria-pressed="true"] {
-      background: transparent;
-      color: var(--green);
-      font-weight: 700;
-    }
-    .langs .flag {
+    .lang-btn:hover { background: rgba(255,255,255,.1); }
+    .flag {
       display: block;
-      width: 22px;
-      height: 15px;
-      border: 1px solid #4a4a4a;
-      border-radius: 1px;
+      width: 48px;
+      height: auto;
+      border-radius: 3px;
       overflow: hidden;
-      flex: 0 0 auto;
-      background: #fff;
+      line-height: 0;
+      box-shadow: 0 0 0 1px rgba(0,0,0,.12);
     }
-    .langs .flag svg { display: block; width: 100%; height: 100%; }
-    h1 {
-      margin: 0 0 10px;
-      font-size: 1.7rem;
-      line-height: 1.2;
-      color: var(--green-dark);
-      letter-spacing: -0.02em;
+    .flag svg { display: block; width: 48px; height: auto; }
+    .chev-lang {
+      width: 12px;
+      height: 12px;
+      color: rgba(255,255,255,.7);
+      transition: transform .2s ease;
     }
-    .welcome {
-      margin: 0;
-      color: var(--muted);
-      font-size: 1.02rem;
-      max-width: 22rem;
-    }
-
-    .search {
-      position: relative;
-      margin: 22px 0 0;
-      display: block;
-    }
-    .search svg {
+    .chev-lang.is-open { transform: rotate(180deg); }
+    .lang-menu {
       position: absolute;
-      left: 14px;
-      top: 50%;
-      width: 20px;
-      height: 20px;
-      color: var(--muted);
-      transform: translateY(-50%);
-      pointer-events: none;
+      top: calc(100% + 8px);
+      right: 0;
+      min-width: 100%;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 10px;
+      background: var(--green);
+      box-shadow: 0 12px 28px rgba(0,0,0,.28);
+      z-index: 20;
     }
-    .search input {
-      width: 100%;
-      height: 48px;
-      padding: 0 14px 0 44px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: var(--white);
-      color: var(--text);
-      font: inherit;
-    }
-    .search input::placeholder { color: #7a8f87; }
-
-    .topics {
-      margin-top: 24px;
-      flex: 1;
-    }
-    .topics h2 {
-      margin: 0 0 12px;
-      font-size: 0.75rem;
-      font-weight: 800;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--green-dark);
-    }
-
-    .list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .guide {
+    .lang-menu button {
       display: flex;
       align-items: center;
-      gap: 14px;
+      justify-content: center;
       width: 100%;
-      min-height: 92px;
-      padding: 14px 14px 14px 14px;
-      text-decoration: none;
-      color: inherit;
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      border-left: 5px solid var(--green);
+      margin: 0;
+      padding: 8px 10px;
+      border: 0;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      background: transparent;
+      cursor: pointer;
     }
-    .guide:active { background: var(--green-soft); }
-    .guide[hidden] { display: none; }
+    .lang-menu button:last-child { border-bottom: 0; }
+    .lang-menu button:hover { background: rgba(255,255,255,.1); }
 
+    .panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      padding: 20px 24px max(16px, env(safe-area-inset-bottom));
+      border-radius: 21px 21px 0 0;
+      background: var(--mint);
+    }
+    h1 {
+      margin: 0 0 16px;
+      flex: 0 0 auto;
+      color: var(--green);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.25;
+      font-variation-settings: "wdth" 100;
+    }
+    .list {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 0;
+    }
+    .guide {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      gap: 12px;
+      min-height: 72px;
+      padding: 10px 14px;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--white);
+      border-radius: 18px;
+      box-shadow: -4px 4px 0 0 var(--green);
+      animation: rise .4s ease both;
+    }
+    .guide:active { transform: translate(-1px, 1px); box-shadow: -2px 2px 0 0 var(--green); }
     .icon {
       flex: 0 0 auto;
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       display: grid;
       place-items: center;
-      border-radius: 12px;
-      background: var(--green-soft);
+      border-radius: 10px;
+      background: var(--mint);
       color: var(--green);
     }
-    .icon svg { display: block; width: 24px; height: 24px; }
-
+    .icon svg { width: 20px; height: 20px; }
     .guide-body { min-width: 0; flex: 1; }
-    .guide h3 {
-      margin: 0 0 4px;
-      font-size: 1.05rem;
-      line-height: 1.3;
-      color: var(--green-dark);
-    }
-    .guide p {
+    .guide .intro,
+    .guide .key {
+      display: block;
       margin: 0;
-      font-size: 0.9rem;
-      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.25;
+      font-variation-settings: "wdth" 100;
     }
-    .guide .meta {
-      display: inline-block;
-      margin-top: 8px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--green);
-    }
+    .guide .intro { font-weight: 300; }
+    .guide .key { font-weight: 700; }
     .chev {
       flex: 0 0 auto;
+      width: 16px;
+      height: 16px;
       color: var(--green);
+      opacity: .4;
     }
-    .chev svg { display: block; width: 22px; height: 22px; }
-
-    .empty {
-      margin: 8px 0 0;
-      padding: 18px 8px;
+    .credit {
+      margin: 12px 0 0;
+      flex: 0 0 auto;
       text-align: center;
-      color: var(--muted);
-      font-size: 0.95rem;
+      color: var(--green);
+      font-size: 11px;
+      opacity: .4;
     }
-    .empty[hidden] { display: none; }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
+    @keyframes rise {
+      from { opacity: 0; transform: translateX(-16px); }
+      to { opacity: 1; transform: none; }
+    }
+    @media (min-width: 720px) {
+      body { background: #163a1b; }
+      .shell {
+        min-height: 100dvh;
+        box-shadow: 0 0 0 1px rgba(255,255,255,.06);
+      }
+      a:focus-visible, button:focus-visible { outline-color: #cde7d2; }
     }
   </style>
 </head>
 <body>
-  <div class="app">
-    <header class="hero">
-      <img class="brand" src="media/logo-turista.png" width="433" height="203" alt="Turista por natureza">
-      <div class="langs" role="group" aria-label="Idioma">
-        <button type="button" data-lang="pt" aria-pressed="true">
-          <span class="flag" aria-hidden="true">
-            <svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#009b3a"/><polygon points="11,1.6 20.4,7.5 11,13.4 1.6,7.5" fill="#fedf00"/><circle cx="11" cy="7.5" r="3.15" fill="#002776"/></svg>
-          </span>
-          Português
+  <div id="app" class="shell">
+    <header class="top">
+      <img class="brand" src="media/logo-turista-branca.png" width="155" height="72" :alt="logoAlt">
+      <div class="lang" ref="switchRef">
+        <button
+          type="button"
+          class="lang-btn"
+          :aria-expanded="open ? 'true' : 'false'"
+          :aria-label="langGroup"
+          @click="open = !open"
+        >
+          <flag-icon :code="current.code"></flag-icon>
+          <svg class="chev-lang" :class="{ 'is-open': open }" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="2 3 5 7 8 3"/>
+          </svg>
         </button>
-        <button type="button" data-lang="en">
-          <span class="flag" aria-hidden="true">
-            <svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#b22234"/><rect y="1.15" width="22" height="1.15" fill="#fff"/><rect y="3.46" width="22" height="1.15" fill="#fff"/><rect y="5.77" width="22" height="1.15" fill="#fff"/><rect y="8.08" width="22" height="1.15" fill="#fff"/><rect y="10.38" width="22" height="1.15" fill="#fff"/><rect y="12.69" width="22" height="1.15" fill="#fff"/><rect width="8.8" height="8.05" fill="#3c3b6e"/></svg>
-          </span>
-          English
-        </button>
-        <button type="button" data-lang="es">
-          <span class="flag" aria-hidden="true">
-            <svg viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="15" fill="#c60b1e"/><rect y="3.75" width="22" height="7.5" fill="#ffc400"/></svg>
-          </span>
-          Español
-        </button>
+        <div v-if="open" class="lang-menu" role="listbox">
+          <button
+            v-for="item in options"
+            :key="item.code"
+            type="button"
+            role="option"
+            :aria-label="item.label"
+            @click="choose(item.code)"
+          >
+            <flag-icon :code="item.code"></flag-icon>
+          </button>
+        </div>
       </div>
-      <h1>Como usar o sistema</h1>
-      <p class="welcome">Passo a passo para usar o aplicativo na sua viagem. Escolha um tópico e siga na tela, no seu ritmo.</p>
-      <label class="search">
-        <span class="sr-only">Buscar guia</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="11" cy="11" r="7"/>
-          <path d="M20 20l-3.5-3.5"/>
-        </svg>
-        <input type="search" id="busca" placeholder="Buscar guia" autocomplete="off" enterkeyhint="search">
-      </label>
     </header>
 
-    <section class="topics" aria-labelledby="topics-title">
-      <h2 id="topics-title">Guias</h2>
-      <div class="list" id="lista">
-        <a class="guide" href="guia-fazer-cadastro.html" data-search="cadastro conta novo login nome cpf documento salvar">
-          <span class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M19 8v6"/>
-              <path d="M16 11h6"/>
-            </svg>
+    <main class="panel">
+      <h1>{{ heading }}</h1>
+      <div class="list">
+        <a
+          v-for="(card, i) in cards"
+          :key="card.href"
+          class="guide"
+          :href="card.href"
+          :aria-label="card.title"
+          :style="{ animationDelay: (0.18 + i * 0.06) + 's' }"
+        >
+          <span class="icon">
+            <guide-icon :name="card.icon"></guide-icon>
           </span>
-          <div class="guide-body">
-            <h3>Como fazer seu cadastro</h3>
-            <p>Abra Novo Cadastro, preencha os dados obrigatórios e salve.</p>
-            <span class="meta">3 passos · com narração</span>
-          </div>
-          <span class="chev" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 6l6 6-6 6"/>
-            </svg>
+          <span class="guide-body">
+            <span class="intro">{{ card.intro }}</span>
+            <span class="key">{{ card.key }}</span>
           </span>
-        </a>
-        <a class="guide" href="guia-taxa-ambiental.html" data-search="pagar pagamento taxa ambiental cadastro grupo cartao pix comprovante">
-          <span class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
-              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
-            </svg>
-          </span>
-          <div class="guide-body">
-            <h3>Como pagar a Taxa de Conservação Ambiental</h3>
-            <p>Cadastre-se, crie o grupo e pague a Taxa de Conservação Ambiental.</p>
-            <span class="meta">6 passos · com narração</span>
-          </div>
-          <span class="chev" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 6l6 6-6 6"/>
-            </svg>
-          </span>
-        </a>
-        <a class="guide" href="guia-pedido-reembolso.html" data-search="reembolso devolucao devolver pagamento dinheiro">
-          <span class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 12a9 9 0 1 0 3-6.7"/>
-              <path d="M3 4v5h5"/>
-            </svg>
-          </span>
-          <div class="guide-body">
-            <h3>Como pedir o reembolso</h3>
-            <p>Abra a taxa ambiental, solicite a devolução e confirme no pagamento.</p>
-            <span class="meta">3 passos · com narração</span>
-          </div>
-          <span class="chev" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 6l6 6-6 6"/>
-            </svg>
-          </span>
-        </a>
-        <a class="guide" href="guia-mudanca-titularidade.html" data-search="titular titularidade transferir mudar troca pessoa data datas">
-          <span class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M16 3l4 4-4 4"/>
-              <path d="M20 7H10"/>
-              <path d="M8 21l-4-4 4-4"/>
-              <path d="M4 17h10"/>
-            </svg>
-          </span>
-          <div class="guide-body">
-            <h3>Como mudar o titular da taxa ou data</h3>
-            <p>Transfira a taxa ambiental de uma pessoa para outra no grupo.</p>
-            <span class="meta">4 passos · com narração</span>
-          </div>
-          <span class="chev" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 6l6 6-6 6"/>
-            </svg>
-          </span>
-        </a>
-        <a class="guide" href="guia-isencao-bonitense.html" data-search="isencao insencao bonitense morador residente bonito documentos comprovante residencia">
-          <span class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 3l8 4v5c0 5-3.4 8.4-8 9.5C7.4 20.4 4 17 4 12V7l8-4z"/>
-              <path d="M9 12l2 2 4-4"/>
-            </svg>
-          </span>
-          <div class="guide-body">
-            <h3>Como pedir isenção da taxa</h3>
-            <p>Residente de Bonito solicita isenção com documento e comprovante de residência.</p>
-            <span class="meta">4 passos · com narração</span>
-          </div>
-          <span class="chev" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 6l6 6-6 6"/>
-            </svg>
-          </span>
-        </a>
-        <a class="guide" href="guia-importar-integrantes.html" data-search="importar integrantes passageiros qr code documento cadastro grupo">
-          <span class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="7" height="7" rx="1"/>
-              <rect x="14" y="3" width="7" height="7" rx="1"/>
-              <rect x="3" y="14" width="7" height="7" rx="1"/>
-              <path d="M14 14h3"/>
-              <path d="M21 14h-1"/>
-              <path d="M14 17h7"/>
-              <path d="M14 21h3"/>
-              <path d="M21 21h-4"/>
-            </svg>
-          </span>
-          <div class="guide-body">
-            <h3>Como importar integrantes</h3>
-            <p>Traga para o grupo quem já tem cadastro, pelo QR Code ou pelo documento.</p>
-            <span class="meta">3 passos · com narração</span>
-          </div>
-          <span class="chev" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 6l6 6-6 6"/>
-            </svg>
-          </span>
-        </a>
-        <a class="guide" href="guia-imprimir-comprovante.html" data-search="imprimir comprovante recibo pdf impressao historico pago">
-          <span class="icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 9V3h12v6"/>
-              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
-              <rect x="6" y="14" width="12" height="7" rx="1"/>
-            </svg>
-          </span>
-          <div class="guide-body">
-            <h3>Como imprimir o comprovante</h3>
-            <p>Abra o pedido pago da taxa ambiental e imprima o recibo oficial.</p>
-            <span class="meta">4 passos · com narração</span>
-          </div>
-          <span class="chev" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 6l6 6-6 6"/>
-            </svg>
-          </span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 6l6 6-6 6"/>
+          </svg>
         </a>
       </div>
-      <p class="empty" id="vazio" hidden>Nenhum guia encontrado.</p>
-    </section>
+      <p class="credit">{{ credit }}</p>
+    </main>
   </div>
   <script src="i18n.js"></script>
-  <script>
-    const busca = document.getElementById("busca");
-    const guias = [...document.querySelectorAll(".guide")];
-    const vazio = document.getElementById("vazio");
-
-    function fold(s) {
-      return s.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
-    }
-
-    function filtrar() {
-      const q = fold(busca.value.trim());
-      let n = 0;
-      guias.forEach((g) => {
-        const hay = fold(`${g.textContent} ${g.dataset.search || ""}`);
-        const ok = !q || hay.includes(q);
-        g.hidden = !ok;
-        if (ok) n += 1;
-      });
-      vazio.hidden = n > 0;
-    }
-
-    GuiaI18n.applyIndex();
-    busca.addEventListener("input", filtrar);
-    document.addEventListener("guia-langchange", filtrar);
-  </script>
+  <script src="vendor/vue.global.prod.js"></script>
+  <script src="hub.js"></script>
 </body>
 </html>

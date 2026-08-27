@@ -21,8 +21,12 @@ _retune_taxa_passos.py
 _recut_taxa.py
 _frames/
 _frames_sync/
+_frames_taxa6/
 _frames_taxa6b/
 _probe/
+_figma-design/
+design-guia.zip
+media.zip
 __pycache__/
 *.pyc
 .DS_Store

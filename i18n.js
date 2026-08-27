@@ -74,7 +74,7 @@
       en: "Turista por Natureza guides: registration, environmental fee, refund, ownership change, exemption, importing members, and receipt.",
       es: "Guías de Turista por Natureza: cadastro, tasa ambiental, reembolso, titularidad, exención, importar integrantes y comprobante."
     },
-    heading: { pt: "Como usar o sistema", en: "How to use the system", es: "Cómo usar el sistema" },
+    heading: { pt: "Material instrutivo do sistema:", en: "System instructional material:", es: "Material instructivo del sistema:" },
     welcome: {
       pt: "Passo a passo para usar o aplicativo na sua viagem. Escolha um tópico e siga na tela, no seu ritmo.",
       en: "A step-by-step path to use the app on your trip. Pick a topic and follow along at your own pace.",
@@ -84,9 +84,13 @@
     topics: { pt: "Guias", en: "Guides", es: "Guías" },
     empty: { pt: "Nenhum guia encontrado.", en: "No guide found.", es: "No se encontró ninguna guía." },
     logoAlt: { pt: "Turista por natureza", en: "Turista por natureza", es: "Turista por natureza" },
+    credit: { pt: "© pedrosoft 2026", en: "© pedrosoft 2026", es: "© pedrosoft 2026" },
     cards: [
       {
         href: "guia-fazer-cadastro.html",
+        icon: "user-plus",
+        intro: { pt: "Como fazer seu", en: "How to create your", es: "Cómo crear su" },
+        key: { pt: "CADASTRO", en: "ACCOUNT", es: "CUENTA" },
         title: { pt: "Como fazer seu cadastro", en: "How to create your account", es: "Cómo crear su cuenta" },
         desc: {
           pt: "Abra Novo Cadastro, preencha os dados obrigatórios e salve.",
@@ -98,6 +102,9 @@
       },
       {
         href: "guia-taxa-ambiental.html",
+        icon: "leaf",
+        intro: { pt: "Como pagar a", en: "How to pay the", es: "Cómo pagar la" },
+        key: { pt: "TAXA DE CONSERVAÇÃO AMBIENTAL", en: "ENVIRONMENTAL CONSERVATION FEE", es: "TASA DE CONSERVACIÓN AMBIENTAL" },
         title: { pt: "Como pagar a Taxa de Conservação Ambiental", en: "How to pay the environmental fee", es: "Cómo pagar la tasa ambiental" },
         desc: {
           pt: "Cadastre-se, crie o grupo e pague a Taxa de Conservação Ambiental.",
@@ -109,6 +116,9 @@
       },
       {
         href: "guia-pedido-reembolso.html",
+        icon: "refresh",
+        intro: { pt: "Como pedir o", en: "How to request a", es: "Cómo pedir el" },
+        key: { pt: "REEMBOLSO", en: "REFUND", es: "REEMBOLSO" },
         title: { pt: "Como pedir o reembolso", en: "How to request a refund", es: "Cómo pedir el reembolso" },
         desc: {
           pt: "Abra a taxa ambiental, solicite a devolução e confirme no pagamento.",
@@ -120,6 +130,9 @@
       },
       {
         href: "guia-mudanca-titularidade.html",
+        icon: "swap",
+        intro: { pt: "Como mudar o", en: "How to change the", es: "Cómo cambiar el" },
+        key: { pt: "TITULAR DA TAXA OU DATA", en: "FEE HOLDER OR DATE", es: "TITULAR DE LA TASA O LA FECHA" },
         title: { pt: "Como mudar o titular da taxa ou data", en: "How to change the fee holder or date", es: "Cómo cambiar el titular de la tasa o la fecha" },
         desc: {
           pt: "Transfira a taxa ambiental de uma pessoa para outra no grupo.",
@@ -131,6 +144,9 @@
       },
       {
         href: "guia-isencao-bonitense.html",
+        icon: "shield",
+        intro: { pt: "Como pedir", en: "How to request a", es: "Cómo pedir la" },
+        key: { pt: "ISENÇÃO DA TAXA", en: "FEE EXEMPTION", es: "EXENCIÓN DE LA TASA" },
         title: { pt: "Como pedir isenção da taxa", en: "How to request a fee exemption", es: "Cómo pedir la exención de la tasa" },
         desc: {
           pt: "Residente de Bonito solicita isenção com documento e comprovante de residência.",
@@ -142,6 +158,9 @@
       },
       {
         href: "guia-importar-integrantes.html",
+        icon: "qr",
+        intro: { pt: "Como importar", en: "How to import", es: "Cómo importar" },
+        key: { pt: "INTEGRANTES", en: "MEMBERS", es: "INTEGRANTES" },
         title: { pt: "Como importar integrantes", en: "How to import members", es: "Cómo importar integrantes" },
         desc: {
           pt: "Traga para o grupo quem já tem cadastro, pelo QR Code ou pelo documento.",
@@ -153,6 +172,9 @@
       },
       {
         href: "guia-imprimir-comprovante.html",
+        icon: "printer",
+        intro: { pt: "Como imprimir o", en: "How to print the", es: "Cómo imprimir el" },
+        key: { pt: "COMPROVANTE", en: "RECEIPT", es: "COMPROBANTE" },
         title: { pt: "Como imprimir o comprovante", en: "How to print the receipt", es: "Cómo imprimir el comprobante" },
         desc: {
           pt: "Abra o pedido pago da taxa ambiental e imprima o recibo oficial.",
@@ -1256,6 +1278,8 @@
     t: t,
     applyIndex: applyIndex,
     applyGuide: applyGuide,
+    INDEX: INDEX,
+    HTML_LANG: HTML_LANG,
     GUIDES: GUIDES
   };
 })();
