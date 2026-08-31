@@ -71,9 +71,12 @@
         });
       });
       const cards = computed(function () {
-        return i18n.INDEX.cards.map(function (card) {
+        return i18n.INDEX.cards.filter(function (card) {
+          if (card.href === "guia-isencao-bonitense.html" && lang.value !== "pt") return false;
+          return !card.langs || card.langs.indexOf(lang.value) >= 0;
+        }).map(function (card) {
           return {
-            href: card.href,
+            href: card.href + (lang.value === "pt" ? "" : "?lang=" + lang.value),
             icon: card.icon,
             intro: card.intro[lang.value],
             key: card.key[lang.value],

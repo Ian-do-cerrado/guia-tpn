@@ -10,6 +10,23 @@
     v.setAttribute("playsinline", "");
     v.setAttribute("webkit-playsinline", "");
     v.controls = false;
+    v.addEventListener("error", () => {
+      const pt = v.getAttribute("data-src-pt");
+      if (!pt || v.dataset.ptFallback === "1") return;
+      const cur = v.getAttribute("src") || "";
+      if (cur === pt) return;
+      fetch(cur, { method: "HEAD" }).then((res) => {
+        if (res.ok) return;
+        v.dataset.ptFallback = "1";
+        v.setAttribute("src", pt);
+        const still = v.getAttribute("data-still-pt");
+        if (still) {
+          v.setAttribute("poster", still);
+          v.setAttribute("data-still", still);
+        }
+        try { v.load(); } catch (err) {}
+      }).catch(() => {});
+    });
   });
 
   if (!document.getElementById("guia-player-css")) {
@@ -17,6 +34,8 @@
     s.id = "guia-player-css";
     s.textContent =
       ".app{touch-action:pan-y}" +
+      ".slide.active .media{animation:none!important}" +
+      ".media{background:#0b1f18!important}" +
       ".media video{width:100%;height:100%;object-fit:contain;object-position:center top;background:#0b1f18;display:block}" +
       ".media.is-waiting::after{content:\"\";position:absolute;left:50%;top:42%;width:36px;height:36px;margin:-18px 0 0 -18px;border:3px solid rgba(255,255,255,.22);border-top-color:#fff;border-radius:50%;animation:guia-spin .7s linear infinite;pointer-events:none}" +
       "@keyframes guia-spin{to{transform:rotate(360deg)}}" +
@@ -30,8 +49,9 @@
       ".app:not(.chrome-on):not(.is-done) header{background:transparent!important;pointer-events:none}" +
       ".app:not(.chrome-on):not(.is-done) header .title-row>div," +
       ".app:not(.chrome-on):not(.is-done) header .progress," +
-      ".app:not(.chrome-on):not(.is-done) header .status{opacity:0!important;pointer-events:none!important}" +
-      "header .back,header #narrate{pointer-events:auto!important;opacity:1!important;z-index:13;position:relative}";
+      ".app:not(.chrome-on):not(.is-done) header .status{opacity:0!important;visibility:hidden!important;pointer-events:none!important}" +
+      "header .back,header #narrate{pointer-events:auto!important;opacity:1!important;visibility:visible!important;z-index:13;position:relative}" +
+      "header .back{border:0;cursor:pointer;appearance:none;-webkit-appearance:none}";
     document.head.appendChild(s);
   }
 
@@ -195,8 +215,14 @@
       const play = el.play();
       if (play && typeof play.catch === "function") play.catch(() => {});
     };
-    if (el.readyState >= 2) tryPlay();
-    else el.addEventListener("canplay", tryPlay, { once: true });
+    if (el.readyState >= 2) {
+      tryPlay();
+      return;
+    }
+    el.addEventListener("loadeddata", tryPlay, { once: true });
+    el.addEventListener("canplay", tryPlay, { once: true });
+    try { if (el.readyState === 0 && el.networkState < 2) el.load(); } catch (err) {}
+    tryPlay();
   }
 
   function speakCurrent() {
@@ -470,17 +496,22 @@
     togglePause();
   }
 
-  const backLink = document.querySelector("a.back");
-  if (backLink) {
+  const backBtn = document.querySelector(".back");
+  if (backBtn) {
+    const homeUrl = () => {
+      const lang = window.GuiaI18n && GuiaI18n.getLang && GuiaI18n.getLang();
+      return lang && lang !== "pt" ? "index.html?lang=" + encodeURIComponent(lang) : "index.html";
+    };
     const goHome = (e) => {
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       if (e.button && e.button !== 0) return;
+      e.preventDefault();
       e.stopPropagation();
-      window.location.assign(backLink.href);
+      window.location.assign(homeUrl());
     };
-    backLink.addEventListener("pointerdown", (e) => e.stopPropagation(), true);
-    backLink.addEventListener("pointerup", (e) => e.stopPropagation(), true);
-    backLink.addEventListener("click", goHome, true);
+    backBtn.addEventListener("pointerdown", (e) => e.stopPropagation(), true);
+    backBtn.addEventListener("pointerup", (e) => e.stopPropagation(), true);
+    backBtn.addEventListener("click", goHome, true);
   }
 
   if (narrateBtn) {
@@ -626,8 +657,14 @@
       video.setAttribute("webkit-playsinline", "");
       video.preload = "auto";
       setWaiting(slide, true);
-      try { video.currentTime = 0; } catch (err) {}
-      syncVideoToNarration(video);
+      try { if (video.readyState === 0 && video.networkState < 2) video.load(); } catch (err) {}
+      const kick = () => {
+        try { video.currentTime = 0; } catch (err) {}
+        syncVideoToNarration(video);
+        if (!userPaused) playWhenReady(video);
+      };
+      if (video.readyState >= 1) kick();
+      else video.addEventListener("loadedmetadata", kick, { once: true });
       if (!userPaused) playWhenReady(video);
       armMediaEnd(slide);
       return;
