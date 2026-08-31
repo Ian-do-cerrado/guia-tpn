@@ -80,6 +80,7 @@
   const BGM_VOL = 0.20;
   const BGM_DUCK = 0.12;
   let voiceOn = localStorage.getItem("guia-narrate") !== "off";
+  let bgmToken = 0;
   if (bgm) {
     bgm.volume = voiceOn ? BGM_VOL : 0;
     bgm.muted = !voiceOn;
@@ -153,13 +154,29 @@
     if (box) box.classList.toggle("is-waiting", !!on);
   }
 
+  function stopBgm() {
+    bgmToken += 1;
+    if (!bgm) return;
+    bgm.muted = true;
+    bgm.volume = 0;
+    try { bgm.pause(); } catch (err) {}
+  }
+
   function startBgm() {
-    if (!bgm || !voiceOn || userPaused) return;
+    if (!bgm || !voiceOn || userPaused) {
+      stopBgm();
+      return;
+    }
+    const token = ++bgmToken;
     bgm.muted = false;
     duckBgm();
-    if (!bgm.paused) return;
     const play = bgm.play();
-    if (play && typeof play.catch === "function") play.catch(() => {});
+    if (play && typeof play.then === "function") {
+      play.then(() => {
+        if (token !== bgmToken || !voiceOn || userPaused) stopBgm();
+        else duckBgm();
+      }).catch(() => {});
+    }
   }
 
   function duckBgm() {
@@ -167,6 +184,7 @@
     if (!voiceOn) {
       bgm.muted = true;
       bgm.volume = 0;
+      try { bgm.pause(); } catch (err) {}
       return;
     }
     bgm.muted = false;
@@ -176,11 +194,7 @@
 
   function muteAll() {
     stopNarration();
-    if (bgm) {
-      bgm.muted = true;
-      bgm.volume = 0;
-      try { bgm.pause(); } catch (err) {}
-    }
+    stopBgm();
   }
 
   clips.forEach((clip) => {
