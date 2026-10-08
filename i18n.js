@@ -117,9 +117,9 @@
       {
         href: "guia-pedido-reembolso.html",
         icon: "refresh",
-        intro: { pt: "Como pedir o", en: "How to request a", es: "Cómo pedir el" },
-        key: { pt: "REEMBOLSO", en: "REFUND", es: "REEMBOLSO" },
-        title: { pt: "Como pedir o reembolso", en: "How to request a refund", es: "Cómo pedir el reembolso" },
+        intro: { pt: "Como cancelar", en: "How to cancel a", es: "Cómo cancelar un" },
+        key: { pt: "PAGAMENTO", en: "PAYMENT", es: "PAGO" },
+        title: { pt: "Como cancelar pagamento", en: "How to cancel a payment", es: "Cómo cancelar un pago" },
         desc: {
           pt: "Abra a taxa ambiental, solicite a devolução e confirme no pagamento.",
           en: "Open the environmental fee, tap Request refund or History, and confirm on Details.",
@@ -127,6 +127,20 @@
         },
         meta: { pt: "3 passos · com narração", en: "3 steps · with narration", es: "3 pasos · con narración" },
         search: "reembolso devolucao devolver pagamento dinheiro refund payment money devolución"
+      },
+      {
+        href: "guia-reembolso-parcial.html",
+        icon: "refresh",
+        intro: { pt: "Como pedir o", en: "How to request a", es: "Cómo pedir el" },
+        key: { pt: "REEMBOLSO PARCIAL", en: "PARTIAL REFUND", es: "REEMBOLSO PARCIAL" },
+        title: { pt: "Como pedir o reembolso parcial", en: "How to request a partial refund", es: "Cómo pedir el reembolso parcial" },
+        desc: {
+          pt: "Cancele diárias específicas na taxa ambiental e envie para análise manual.",
+          en: "Cancel specific fee days on the environmental tax and submit for review.",
+          es: "Cancele días específicos en la taxa ambiental y envíe para revisión manual."
+        },
+        meta: { pt: "4 passos · com narração", en: "4 steps · with narration", es: "4 passos · con narración" },
+        search: "reembolso parcial devolver diarias devolução diárias cancelar partial refund days"
       },
       {
         href: "guia-mudanca-titularidade.html",
@@ -396,6 +410,133 @@
             pt: "Se a senha ficar em branco, o celular pode valer como senha.",
             en: "If you leave the password blank, the mobile number can work as the password.",
             es: "Si la contraseña queda en blanco, el celular puede valer como contraseña."
+          }
+        }
+      ]
+    },
+    reembolso_parcial: {
+      title: { pt: "Como pedir o reembolso parcial", en: "How to request a partial refund", es: "Cómo pedir el reembolso parcial" },
+      description: {
+        pt: "Guia passo a passo para solicitar a devolução de diárias da taxa ambiental no Turista por Natureza.",
+        en: "Step-by-step guide to request a partial refund of fee days in Turista por Natureza.",
+        es: "Guía paso a paso para solicitar la devolución de diarias de la tasa ambiental en Turista por Natureza."
+      },
+      lede: {
+        pt: "Turista por Natureza · cancele diárias específicas da taxa ambiental",
+        en: "Turista por Natureza · cancel specific days of the environmental fee",
+        es: "Turista por Natureza · cancele días específicos de la tasa ambiental"
+      },
+      doneNarrate: {
+        pt: "Guia concluído. A solicitação de devolução de diárias foi enviada com sucesso! O pedido passará por análise manual da prefeitura. Você pode acompanhar o andamento na aba Solicitações de reembolso, no histórico da taxa.",
+        en: "Guide complete. The day refund request was successfully sent! The request will be reviewed manually by the city hall. You can track progress in the Refund requests tab, in the fee History.",
+        es: "Guía completada. ¡La solicitud de devolución de diarias fue enviada con éxito! El pedido pasará por revisión manual de la municipalidad. Puede seguir el estado en Solicitudes de reembolso, en la Historia de la tasa."
+      },
+      doneLead: {
+        pt: "A solicitação de devolução de diárias foi enviada para análise manual da prefeitura. Acompanhe o andamento na aba Solicitações de reembolso, no histórico da taxa.",
+        en: "The day refund request has been sent for manual review by the city hall. Track the progress in the Refund requests tab in History.",
+        es: "La solicitud de devolución de diarias fue enviada para revisión manual de la municipalidad. Siga el estado en la pestaña Solicitudes de reembolso en Historia."
+      },
+      doneTipLabel: { pt: "Análise da prefeitura", en: "City Hall Review", es: "Revisión municipal" },
+      doneTipHtml: {
+        pt: "Diferente do cancelamento total, a devolução parcial de diárias passa por conferência manual do município.",
+        en: "Unlike total payment refund, partial day refund undergoes manual review by the municipality.",
+        es: "A diferencia de la cancelación total, la devolución parcial de diarias pasa por verificación manual del municipio."
+      },
+      steps: [
+        {
+          title: { pt: "Acesse a Taxa Ambiental", en: "Access the Environmental Fee", es: "Acceda a la Tasa Ambiental" },
+          narrate: {
+            pt: "Passo 1. Acesse a Taxa Ambiental. No grupo da viagem, toque em Taxas e serviços. Em seguida, toque em Taxa de Conservação Ambiental de Bonito.",
+            en: "Step 1. Access the Environmental Fee. In the trip group, tap Fees and services. Then tap Bonito's Environmental Conservation Fee.",
+            es: "Paso 1. Acceda a la Tasa Ambiental. En el grupo del viaje, toque Tasas y servicios. Después toque Tasa de Conservación Ambiental de Bonito."
+          },
+          alt: {
+            pt: "No grupo da viagem, o ponteiro toca em Taxas e serviços e depois em Taxa de Conservação Ambiental de Bonito.",
+            en: "In the trip group, the pointer taps Fees and services and then Bonito's Environmental Conservation Fee.",
+            es: "En el grupo del viaje, el puntero toca Tasas y servicios y luego Tasa de Conservación Ambiental de Bonito."
+          },
+          howto: [
+            { pt: "Abra o <b>grupo</b> da viagem.", en: "Open the trip <b>group</b>.", es: "Abra el <b>grupo</b> del viaje." },
+            { pt: "Toque em <b>Taxas e serviços</b>.", en: "Tap <b>Fees and services</b>.", es: "Toque <b>Tasas y servicios</b>." },
+            { pt: "Toque em <b>Taxa de Conservação Ambiental de Bonito</b>.", en: "Tap <b>Bonito's Environmental Conservation Fee</b>.", es: "Toque <b>Tasa de Conservación Ambiental de Bonito</b>." }
+          ],
+          tipLabel: { pt: "Onde começar", en: "Where to start", es: "Dónde empezar" },
+          tipHtml: {
+            pt: "O botão Taxas e serviços fica no canto superior direito da tela Dados do grupo.",
+            en: "The Fees and services button is in the top right corner of Group's Data.",
+            es: "El botón Tasas y servicios está arriba a la derecha en Datos del grupo."
+          }
+        },
+        {
+          title: { pt: "Escolha Devolução de diárias", en: "Choose Day refund", es: "Elija Devolución de diarias" },
+          narrate: {
+            pt: "Passo 2. Escolha Devolução de diárias. Na tela da taxa ambiental, toque no botão laranja Solicitar devolução. Depois escolha Solicitar devolução de diárias.",
+            en: "Step 2. Choose Day refund. On the environmental fee screen, tap the orange Request refund button. Then choose Request day refund.",
+            es: "Paso 2. Elija Devolución de diarias. En la pantalla de la taxa ambiental, toque el botón naranja Solicitar devolución. Después elija Solicitar devolución de diarias."
+          },
+          alt: {
+            pt: "Na taxa ambiental, o ponteiro toca em Solicitar devolução e escolhe Solicitar devolução de diárias.",
+            en: "On the environmental fee screen, the pointer taps Request refund and chooses Request day refund.",
+            es: "En la tasa ambiental, el puntero toca Solicitar devolución y elige Solicitar devolución de diarias."
+          },
+          howto: [
+            { pt: "Confira se o status da taxa está <b>Pago</b>.", en: "Check that the fee status is <b>Paid</b>.", es: "Compruebe que el estado esté <b>Pagado</b>." },
+            { pt: "Toque no botão laranja <b>Solicitar devolução</b>.", en: "Tap the orange <b>Request refund</b> button.", es: "Toque el botón naranja <b>Solicitar devolución</b>." },
+            { pt: "Selecione a opção <b>Solicitar devolução de diárias</b>.", en: "Choose <b>Request day refund</b>.", es: "Elija <b>Solicitar devolución de diarias</b>." }
+          ],
+          tipLabel: { pt: "Atenção à opção", en: "Option note", es: "Atención a la opción" },
+          tipHtml: {
+            pt: "Solicitar devolução de pagamento estorna o valor total. Devolução de diárias cancela apenas dias específicos.",
+            en: "Request payment refund returns total amount. Request day refund cancels specific days only.",
+            es: "Solicitar devolución de pago devuelve el total. Devolución de diarias cancela solo días específicos."
+          }
+        },
+        {
+          title: { pt: "Selecione as diárias", en: "Select the fee days", es: "Seleccione las diarias" },
+          narrate: {
+            pt: "Passo 3. Selecione as diárias. Na grade, marque as diárias dos passageiros que deseja cancelar. Depois, toque em Solicitar devolução de diárias no rodapé.",
+            en: "Step 3. Select the fee days. On the grid, check the passenger days you want to refund. Then tap Request day refund at the bottom.",
+            es: "Paso 3. Seleccione las diarias. En la grilla, marque los días de los pasajeros que desea cancelar. Después toque Solicitar devolución de diarias abajo."
+          },
+          alt: {
+            pt: "Na grade de diárias, o ponteiro marca as caixas de seleção das diárias dos passageiros e clica no botão laranja Solicitar devolução de diárias.",
+            en: "On the grid, the pointer checks the passenger day checkboxes and taps orange Request day refund.",
+            es: "En la grilla, el puntero marca las casillas de días de pasajeros y toca el botón naranja Solicitar devolución de diarias."
+          },
+          howto: [
+            { pt: "Na grade, localize as linhas dos passageiros.", en: "On the grid, locate the passenger rows.", es: "En la grilla, localice las filas de los pasajeros." },
+            { pt: "Marque as diárias (quadradinhos) que deseja cancelar.", en: "Check the day boxes you want to refund.", es: "Marque los días (casillas) que desea cancelar." },
+            { pt: "Toque no botão laranja <b>Solicitar devolução de diárias</b> no rodapé.", en: "Tap the orange <b>Request day refund</b> button at the bottom.", es: "Toque el botón naranja <b>Solicitar devolución de diarias</b> abajo." }
+          ],
+          tipLabel: { pt: "Cancelamento flexível", en: "Flexible cancellation", es: "Cancelación flexible" },
+          tipHtml: {
+            pt: "Você pode selecionar diárias de um único passageiro ou de vários integrantes do grupo ao mesmo tempo.",
+            en: "You can select days for one passenger or for multiple trip members at once.",
+            es: "Puede seleccionar días de un solo pasajero o de varios integrantes a la vez."
+          }
+        },
+        {
+          title: { pt: "Preencha os dados e envie", en: "Fill in details and send", es: "Complete los datos y envíe" },
+          narrate: {
+            pt: "Passo 4. Preencha os dados e envie. Informe o CPF ou CNPJ, selecione o banco, informe agência, conta e titular. Escreva a justificativa e toque em Enviar.",
+            en: "Step 4. Fill in the details and submit. Enter the ID number, select the bank, type the branch, account, and account holder. Type the reason and tap Send.",
+            es: "Paso 4. Complete los datos y envíe. Ingrese el documento, elija el banco, escriba sucursal, cuenta y titular. Escriba el motivo y toque Enviar."
+          },
+          alt: {
+            pt: "No formulário de reembolso, são preenchidos o CPF, banco, agência, conta, titular e a justificativa, e o ponteiro clica em Enviar.",
+            en: "On the refund form, tax ID, bank, branch, account, holder, and reason are filled, and the pointer taps Send.",
+            es: "En el formulario de devolución, se completan documento, banco, sucursal, cuenta, titular y motivo, y el puntero toca Enviar."
+          },
+          howto: [
+            { pt: "Informe o <b>CPF/CNPJ</b> e selecione o <b>Banco</b>.", en: "Enter the <b>Tax ID (CPF/CNPJ)</b> and select the <b>Bank</b>.", es: "Ingrese el <b>documento (CPF/CNPJ)</b> y elija el <b>Banco</b>." },
+            { pt: "Preencha <b>Agência</b>, <b>Conta</b> e o nome do <b>Titular</b>.", en: "Fill in <b>Branch</b>, <b>Account</b>, and <b>Holder Name</b>.", es: "Complete <b>Sucursal</b>, <b>Cuenta</b> y <b>Titular</b>." },
+            { pt: "Escreva a <b>Justificativa</b> e toque em <b>Enviar</b>.", en: "Enter the <b>Reason</b> and tap <b>Send</b>.", es: "Escriba el <b>Motivo</b> y toque <b>Enviar</b>." }
+          ],
+          tipLabel: { pt: "Confirmação imediata", en: "Instant confirmation", es: "Confirmación inmediata" },
+          tipHtml: {
+            pt: "Ao enviar com sucesso, uma notificação verde é exibida no topo confirmando o recebimento.",
+            en: "Once submitted successfully, a green banner appears confirming receipt.",
+            es: "Al enviar con éxito, aparece un aviso verde arriba confirmando la recepción."
           }
         }
       ]
