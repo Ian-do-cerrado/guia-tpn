@@ -70,9 +70,9 @@
       es: "Turista por Natureza · Guías"
     },
     description: {
-      pt: "Guias do Turista por Natureza: cadastro, taxa ambiental, reembolso, titularidade, isenção, importar integrantes e comprovante.",
-      en: "Turista por Natureza guides: registration, environmental fee, refund, ownership change, importing passengers, and receipt.",
-      es: "Guías de Turista por Natureza: registro, tasa ambiental, reembolso, titularidad, importar pasajeros y comprobante."
+      pt: "Guias do Turista por Natureza: cadastro, taxa ambiental, reembolso, mudança de titular ou data, isenção, importar integrantes e comprovante.",
+      en: "Turista por Natureza guides: registration, environmental fee, refund, holder or date change, exemption, importing passengers, and receipt.",
+      es: "Guías de Turista por Natureza: registro, tasa ambiental, reembolso, cambio de titular o fecha, exención, importar pasajeros y comprobante."
     },
     heading: { pt: "Material instrutivo do sistema:", en: "System instructional material:", es: "Material instructivo del sistema:" },
     welcome: {
@@ -146,15 +146,29 @@
         href: "guia-mudanca-titularidade.html",
         icon: "swap",
         intro: { pt: "Como mudar o", en: "How to change the", es: "Cómo cambiar el" },
-        key: { pt: "TITULAR DA TAXA OU DATA", en: "FEE HOLDER OR DATE", es: "TITULAR DE LA TASA O LA FECHA" },
-        title: { pt: "Como mudar o titular da taxa ou data", en: "How to change the fee holder or date", es: "Cómo cambiar el titular de la tasa" },
+        key: { pt: "TITULAR DA TAXA", en: "FEE HOLDER", es: "TITULAR DE LA TASA" },
+        title: { pt: "Como mudar o titular da taxa", en: "How to change the fee holder", es: "Cómo cambiar el titular de la tasa" },
         desc: {
           pt: "Transfira a taxa ambiental de uma pessoa para outra no grupo.",
           en: "On Environmental Tax, tap Change in paid days or holder, then Fee Holder Change.",
           es: "En Impuesto Ambiental, toque Cambio de días pagados o titular y luego Cambio de Titular de la Tasa."
         },
         meta: { pt: "4 passos · com narração", en: "4 steps · with narration", es: "4 pasos · con narración" },
-        search: "titular titularidade transferir mudar troca pessoa data datas date holder ownership change transfer"
+        search: "titular titularidade transferir mudar troca pessoa holder ownership change transfer"
+      },
+      {
+        href: "guia-mudar-data.html",
+        icon: "calendar",
+        intro: { pt: "Como mudar a", en: "How to change a", es: "Cómo cambiar la" },
+        key: { pt: "DATA DA TAXA", en: "FEE DATE", es: "FECHA DE LA TASA" },
+        title: { pt: "Como mudar a data da taxa", en: "How to change a fee date", es: "Cómo cambiar la fecha de la tasa" },
+        desc: {
+          pt: "Transfira uma diária paga para outra data para os passageiros selecionados.",
+          en: "Move a paid fee day to a different date for the selected passengers.",
+          es: "Traslade una diaria pagada a otra fecha para los pasajeros seleccionados."
+        },
+        meta: { pt: "4 passos · com narração", en: "4 steps · with narration", es: "4 pasos · con narración" },
+        search: "mudar data taxa diária diária paga origem destino mudança de dia change date fee paid day source destination cambio fecha tasa día pagado"
       },
       {
         href: "guia-isencao-bonitense.html",
@@ -645,7 +659,7 @@
       ]
     },
     titularidade: {
-      title: { pt: "Como mudar o titular da taxa ou data", en: "How to change the fee holder or date", es: "Cómo cambiar el titular de la tasa" },
+      title: { pt: "Como mudar o titular da taxa", en: "How to change the fee holder", es: "Cómo cambiar el titular de la tasa" },
       description: {
         pt: "Guia para transferir a taxa ambiental de uma pessoa para outra no grupo.",
         en: "Guide to transfer the environmental fee from one person to another in the group.",
@@ -765,6 +779,132 @@
             pt: "Cadastre a outra pessoa em Passageiros se ela ainda não estiver no grupo.",
             en: "Register the other person under <b>PASSENGERS</b> if they are not already in the group.",
             es: "Registre a la otra persona en <b>PASAJEROS</b> si aún no está en el grupo."
+          }
+        }
+      ]
+    },
+    mudar_data: {
+      title: { pt: "Como mudar a data da taxa", en: "How to change a fee date", es: "Cómo cambiar la fecha de la tasa" },
+      description: {
+        pt: "Guia passo a passo para transferir uma diária paga da taxa ambiental para outra data.",
+        en: "Step-by-step guide to move a paid environmental-fee day to a different date.",
+        es: "Guía paso a paso para trasladar una diaria pagada de la tasa ambiental a otra fecha."
+      },
+      lede: {
+        pt: "Turista por Natureza · mude uma diária paga para outra data",
+        en: "Turista por Natureza · move a paid day to a different date",
+        es: "Turista por Natureza · cambie una diaria pagada a otra fecha"
+      },
+      doneNarrate: {
+        pt: "Guia concluído. A alteração da data foi salva. Confira a taxa ambiental no grupo para confirmar que as diárias dos passageiros marcados foram atualizadas.",
+        en: "Guide complete. The date change was saved. Check the environmental fee in the group to confirm the selected passengers' days were updated.",
+        es: "Guía completada. El cambio de fecha se guardó. Revise la tasa ambiental en el grupo para confirmar que se actualizaron los días de los pasajeros seleccionados."
+      },
+      doneLead: {
+        pt: "A alteração foi salva. Confira a taxa ambiental no grupo para confirmar que os passageiros selecionados aparecem na nova data.",
+        en: "The change was saved. Check the environmental fee in the group to confirm the selected passengers appear on the new date.",
+        es: "El cambio se guardó. Revise la tasa ambiental en el grupo para confirmar que los pasajeros seleccionados aparecen en la nueva fecha."
+      },
+      doneTipLabel: { pt: "Lembrete", en: "Reminder", es: "Recordatorio" },
+      doneTipHtml: {
+        pt: "A diária sai da data de origem e vai para a data de destino dos passageiros selecionados.",
+        en: "The paid day moves from the source date to the destination date for the selected passengers.",
+        es: "La diaria pagada pasa de la fecha de origen a la fecha de destino para los pasajeros seleccionados."
+      },
+      steps: [
+        {
+          title: { pt: "Abra a taxa ambiental", en: "Open the environmental fee", es: "Abra la tasa ambiental" },
+          narrate: {
+            pt: "Passo 1. Abra a taxa ambiental. No grupo da viagem, toque em Taxas e serviços. Depois, abra Taxa de Conservação Ambiental de Bonito.",
+            en: "Step 1. Open the environmental fee. In the trip group, tap Fees and services. Then open Bonito's Environmental Conservation Fee.",
+            es: "Paso 1. Abra la tasa ambiental. En el grupo del viaje, toque Tasas y servicios. Después, abra la Tasa de Conservación Ambiental de Bonito."
+          },
+          alt: {
+            pt: "No grupo, o ponteiro abre Taxas e serviços e a Taxa de Conservação Ambiental de Bonito.",
+            en: "In the group, the pointer opens Fees and services and Bonito's Environmental Conservation Fee.",
+            es: "En el grupo, el puntero abre Tasas y servicios y la Tasa de Conservación Ambiental de Bonito."
+          },
+          howto: [
+            { pt: "Entre no <b>grupo</b> da viagem.", en: "Open the trip <b>group</b>.", es: "Abra el <b>grupo</b> del viaje." },
+            { pt: "Toque em <b>Taxas e serviços</b>.", en: "Tap <b>Fees and services</b>.", es: "Toque <b>Tasas y servicios</b>." },
+            { pt: "Abra <b>Taxa de Conservação Ambiental de Bonito</b>.", en: "Open <b>Bonito's Environmental Conservation Fee</b>.", es: "Abra la <b>Tasa de Conservación Ambiental de Bonito</b>." }
+          ],
+          tipLabel: { pt: "Onde começar", en: "Where to start", es: "Dónde empezar" },
+          tipHtml: {
+            pt: "O botão <b>Taxas e serviços</b> fica no alto da tela Dados do grupo.",
+            en: "<b>Fees and services</b> is at the top of the Group's Data screen.",
+            es: "<b>Tasas y servicios</b> está arriba, en la pantalla Datos del grupo."
+          }
+        },
+        {
+          title: { pt: "Escolha Mudança de Dia", en: "Choose Change of Day", es: "Elija Cambio de Día" },
+          narrate: {
+            pt: "Passo 2. Escolha Mudança de Dia. Em Tipo de Mudança, selecione Mudança de Dia e toque em Prosseguir.",
+            en: "Step 2. Choose Change of Day. Under Tipo de Mudança, select Change of Day and tap Next.",
+            es: "Paso 2. Elija Cambio de Día. En Tipo de Mudança, seleccione Cambio de Día y toque Continuar."
+          },
+          alt: {
+            pt: "O seletor Tipo de Mudança está em Mudança de Dia, antes de tocar em Prosseguir.",
+            en: "The change-type selector is set to Change of Day before tapping Next.",
+            es: "El selector Tipo de Mudança está en Cambio de Día antes de tocar Continuar."
+          },
+          howto: [
+            { pt: "Toque em <b>Alteração de datas ou titularidade</b> na taxa ambiental.", en: "On the environmental fee, tap <b>Change in paid days or holder</b>.", es: "En la tasa ambiental, toque <b>Cambio de días pagados o titular</b>." },
+            { pt: "Em <b>Tipo de Mudança</b>, selecione <b>Mudança de Dia</b>.", en: "Under <b>Tipo de Mudança</b>, select <b>Change of Day</b>.", es: "En <b>Tipo de Mudança</b>, seleccione <b>Cambio de Día</b>." },
+            { pt: "Toque em <b>Prosseguir</b>.", en: "Tap <b>Next</b>.", es: "Toque <b>Continuar</b>." }
+          ],
+          tipLabel: { pt: "Não confunda", en: "Do not mix them up", es: "No los confunda" },
+          tipHtml: {
+            pt: "Use <b>Mudança de Dia</b> para alterar a data. <b>Mudança de Titular da Taxa</b> troca o passageiro responsável.",
+            en: "Choose <b>Change of Day</b> to change a date. <b>Fee Holder Change</b> changes which passenger is responsible.",
+            es: "Elija <b>Cambio de Día</b> para cambiar la fecha. <b>Cambio de Titular de la Tasa</b> cambia al pasajero responsable."
+          }
+        },
+        {
+          title: { pt: "Selecione os passageiros", en: "Select the passengers", es: "Seleccione los pasajeros" },
+          narrate: {
+            pt: "Passo 3. Selecione os passageiros. Todos aparecem marcados inicialmente. Desmarque quem não terá a diária alterada, deixe marcados os passageiros afetados e toque em Prosseguir.",
+            en: "Step 3. Select the passengers. Everyone is selected at first. Uncheck passengers who should not be changed, leave the affected passengers checked, and tap Next.",
+            es: "Paso 3. Seleccione los pasajeros. Al principio todos aparecen marcados. Desmarque a quienes no se les cambiará la diaria, deje marcados los pasajeros afectados y toque Continuar."
+          },
+          alt: {
+            pt: "Na lista de passageiros, o ponteiro desmarca uma pessoa, deixando selecionado quem deve mudar.",
+            en: "In the passenger list, the pointer unchecks one person, leaving the affected passenger selected.",
+            es: "En la lista de pasajeros, el puntero desmarca a una persona y deja seleccionados a quienes tendrán el cambio."
+          },
+          howto: [
+            { pt: "Todos aparecem marcados no início. Desmarque quem não será alterado.", en: "Everyone is selected at first. Uncheck passengers who should not be changed.", es: "Todos aparecen marcados al inicio. Desmarque a quienes no se les cambiará la diaria." },
+            { pt: "Deixe marcados os passageiros afetados e toque em <b>Prosseguir</b>.", en: "Leave the affected passengers checked and tap <b>Next</b>.", es: "Deje marcados los pasajeros afectados y toque <b>Continuar</b>." }
+          ],
+          tipLabel: { pt: "Seleção inicial", en: "Initial selection", es: "Selección inicial" },
+          tipHtml: {
+            pt: "Todos os passageiros começam marcados. Revise a seleção antes de prosseguir.",
+            en: "All passengers are selected initially. Review the selection before continuing.",
+            es: "Todos los pasajeros aparecen marcados al inicio. Revise la selección antes de continuar."
+          }
+        },
+        {
+          title: { pt: "Escolha as datas", en: "Choose the dates", es: "Elija las fechas" },
+          narrate: {
+            pt: "Passo 4. Escolha as datas. Em Data origem, selecione uma diária já paga. Em Data destino, escolha a nova data dentro do período do grupo. Toque em Mudar dias e aguarde a confirmação Dados salvos com sucesso.",
+            en: "Step 4. Choose the dates. Under Start date, select a paid day. Under End date, choose the new date within the group's travel period. Tap Change Days and wait for the Data saved successfully confirmation.",
+            es: "Paso 4. Elija las fechas. En Fecha inicio, seleccione una diaria pagada. En Fecha fim, elija la nueva fecha dentro del período del grupo. Toque Cambiar dias y espere la confirmación Datos guardados con éxito."
+          },
+          alt: {
+            pt: "Dois calendários mostram Data origem e Data destino, antes de salvar a mudança.",
+            en: "Two calendars show Start date and End date before saving the change.",
+            es: "Dos calendarios muestran Fecha inicio y Fecha fim antes de guardar el cambio."
+          },
+          howto: [
+            { pt: "Em <b>Data origem</b>, escolha um dia já pago.", en: "Under <b>Start date</b>, choose a day that has already been paid.", es: "En <b>Fecha inicio</b>, elija un día ya pagado." },
+            { pt: "Em <b>Data destino</b>, escolha uma data dentro do período do grupo.", en: "Under <b>End date</b>, choose a date within the group's travel period.", es: "En <b>Fecha fim</b>, elija una fecha dentro del período del grupo." },
+            { pt: "Confira as datas e toque em <b>Mudar dias</b>.", en: "Check the dates and tap <b>Change Days</b>.", es: "Revise las fechas y toque <b>Cambiar dias</b>." }
+          ],
+          tipLabel: { pt: "Antes de salvar", en: "Before saving", es: "Antes de guardar" },
+          tipHtml: {
+            pt: "A origem deve ser uma diária paga. Confira se o destino está dentro do período da viagem.",
+            en: "The source must be a paid day. Check that the destination is within the trip period.",
+            es: "El origen debe ser una diaria pagada. Compruebe que el destino esté dentro del período del viaje."
           }
         }
       ]
